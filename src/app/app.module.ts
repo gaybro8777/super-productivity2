@@ -4,7 +4,6 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {taskReducer, TasksModule} from './tasks';
 
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -25,13 +24,10 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MdToolbarModule,
     RouterModule.forRoot(routes, {useHash: true}),
-    StoreModule.forRoot({
-      tasks: taskReducer
-    }),
+    StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
     }),
-    TasksModule
   ],
   providers: [],
   bootstrap: [AppComponent]
