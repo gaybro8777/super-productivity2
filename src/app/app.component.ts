@@ -3,7 +3,7 @@ import {OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
 import {Store} from '@ngrx/store';
-import {ADD_TODO, DELETE_TODO, TOGGLE_DONE, UPDATE_TODO} from './reducers/todo.reducer';
+import {ADD_TASK, DELETE_TASK, TOGGLE_DONE, UPDATE_TASK} from './tasks/task.actions';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +11,8 @@ import {ADD_TODO, DELETE_TODO, TOGGLE_DONE, UPDATE_TODO} from './reducers/todo.r
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  todos$: Observable<any>;
-  todo: string;
+  tasks$: Observable<any>;
+  task: string;
   editing = false;
   indexToEdit: number | null;
 
@@ -20,38 +20,38 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.todos$ = this.store.select('todoReducer');
+    this.tasks$ = this.store.select('TaskReducer');
   }
 
-  addTodo(value) {
-    this.store.dispatch({type: ADD_TODO, payload: {value, done: false}});
-    this.todo = '';
+  addTask(value) {
+    this.store.dispatch({type: ADD_TASK, payload: {value, done: false}});
+    this.task = '';
   }
 
-  deleteTodo(index) {
-    this.store.dispatch({type: DELETE_TODO, payload: index});
+  deleteTask(index) {
+    this.store.dispatch({type: DELETE_TASK, payload: index});
   }
 
-  editTodo(todo, index) {
+  editTask(task, index) {
     this.editing = true;
-    this.todo = todo.value;
+    this.task = task.value;
     this.indexToEdit = index;
   }
 
   cancelEdit() {
     this.editing = false;
-    this.todo = '';
+    this.task = '';
     this.indexToEdit = null;
   }
 
-  updateTodo(updatedTodo) {
-    this.store.dispatch({type: UPDATE_TODO, payload: {index: this.indexToEdit, newValue: updatedTodo}});
-    this.todo = '';
+  updateTask(updatedTask) {
+    this.store.dispatch({type: UPDATE_TASK, payload: {index: this.indexToEdit, newValue: updatedTask}});
+    this.task = '';
     this.indexToEdit = null;
     this.editing = false;
   }
 
-  toggleDone(todo, index) {
-    this.store.dispatch({type: TOGGLE_DONE, payload: {index, done: todo.done}});
+  toggleDone(Task, index) {
+    this.store.dispatch({type: TOGGLE_DONE, payload: {index, done: Task.done}});
   }
 }

@@ -7,17 +7,17 @@
 
 <!--<router-outlet></router-outlet>-->
 
-<input placeholder="your todo" [(ngModel)]="todo">
+<input placeholder="your task" [(ngModel)]="task">
 
 <button
-  (click)="addTodo(todo)"
-  [disabled]="!todo"
+  (click)="addTask(task)"
+  [disabled]="!task"
   *ngIf="!editing">
-  Add todo
+  Add task
 </button>
 
 <button
-  (click)="updateTodo(todo)"
+  (click)="updateTask(task)"
   *ngIf="editing">
   Update
 </button>
@@ -29,10 +29,10 @@
 
 
 <ul>
-  <li *ngFor="let todo of todos$ | async; let i = index;">
-    <span [class.done]="todo.done">{{ todo.value }}</span>
-    <button (click)="editTodo(todo, i)">Edit</button>
-    <button (click)="toggleDone(todo, i)">Toggle Done</button>
-    <button (click)="deleteTodo(i)">X</button>
+  <li *ngFor="let task of tasks$ | async; let i = index;">
+    <span [class.done]="task.done">{{ task.value }}</span>
+    <button (click)="editTask(task, i)">Edit</button>
+    <button (click)="toggleDone(task, i)">Toggle Done</button>
+    <button (click)="deleteTask(i)">X</button>
   </li>
 </ul>
