@@ -1,22 +1,20 @@
 import {Injectable} from '@angular/core';
-import {Actions, Effect, toPayload} from '@ngrx/effects';
-import {Observable} from 'rxjs/Observable'
-import {Action} from "@ngrx/store";
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/toArray';
-import {of} from 'rxjs/observable/of';
-import {TaskService} from "./task.service";
-import {TaskActions} from "./task.actions";
+import {Actions, Effect} from '@ngrx/effects';
+import {Store} from '@ngrx/store';
+// import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/catch';
+// import 'rxjs/add/operator/startWith';
+// import 'rxjs/add/operator/switchMap';
+// import 'rxjs/add/operator/mergeMap';
+// import 'rxjs/add/operator/toArray';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/withLatestFrom';
+import {ADD_TASK} from "./task.actions";
 
 @Injectable()
 export class TaskEffects {
-  constructor(private taskService: TaskService,
-              private taskActions: TaskActions,
-              private actions$: Actions) {
+  constructor(private actions$: Actions,
+              private store$: Store<any>) {
   }
 
   // @Effect()
@@ -30,12 +28,21 @@ export class TaskEffects {
   //     }))
   //   );
 
+  // SYNCH WITH LS
+  @Effect({dispatch: false}) addTask$: any = this.actions$
+    .ofType(ADD_TASK)
+    .withLatestFrom(this.store$)
+    .do((state) => {
+      localStorage.setItem('tasks', JSON.stringify(state));
+      return state;
+    });
+
   // @Effect() addTask$ = this.actions$
-  //   .ofType('ADD_BLOG')
+  //   .ofType(ADD_TASK)
   //   .map(action => action.payload)
   //   .switchMap(task => this.taskService.addTask(task))
   //   .map(task => this.taskActions.addTaskSuccess(task));
-  //
+
   //
   // @Effect() deleteTask$ = this.actions$
   //   .ofType('DELETE_BLOG')

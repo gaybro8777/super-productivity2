@@ -5,10 +5,13 @@ import {ADD_TASK, DELETE_TASK, RELOAD_FROM_LS, TOGGLE_DONE, UPDATE_TASK} from '.
 export function TaskReducer(state = [], action: any) {
   switch (action.type) {
     case RELOAD_FROM_LS:
-      if (!localStorage.tasks || typeof  Array.isArray(localStorage.tasks)) {
-        localStorage.setItem('tasks', JSON.stringify([]));
+      const LS_KEY = 'tasks';
+
+      const LS_INITIAL = JSON.parse(localStorage.getItem(LS_KEY));
+      if (!LS_INITIAL || !Array.isArray(LS_INITIAL)) {
+        localStorage.setItem(LS_KEY, JSON.stringify([]));
       }
-      const lsTasks = JSON.parse(localStorage.getItem('tasks'));
+      const lsTasks = JSON.parse(localStorage.getItem(LS_KEY));
       console.log('RELOAD', localStorage.tasks, lsTasks, state);
       return [...lsTasks];
 
