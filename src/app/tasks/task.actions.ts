@@ -8,6 +8,7 @@ export const REQUEST_TASKS = 'REQUEST_TASKS';
 export const LOAD_TASKS_SUCCESS = 'LOAD_TASKS_SUCCESS';
 export const ADD_TASK_SUCCESS = 'ADD_TASK_SUCCESS';
 export const DELETE_TASK_SUCCESS = 'DELETE_TASK_SUCCESS';
+export const RELOAD_FROM_LS = 'RELOAD_FROM_LS';
 
 @Injectable()
 export class TaskActions {

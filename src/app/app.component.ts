@@ -2,13 +2,13 @@ import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
-import {Store} from '@ngrx/store';
-import {ADD_TASK, DELETE_TASK, TOGGLE_DONE, UPDATE_TASK} from './tasks/task.actions';
+import {TaskService} from './tasks/task.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  providers: [TaskService],
 })
 export class AppComponent implements OnInit {
   tasks$: Observable<any>;
@@ -16,20 +16,20 @@ export class AppComponent implements OnInit {
   editing = false;
   indexToEdit: number | null;
 
-  constructor(private store: Store<any>) {
+  constructor(private taskService: TaskService) {
   }
 
   ngOnInit() {
-    this.tasks$ = this.store.select('TaskReducer');
+    this.tasks$ = this.taskService.tasks$;
   }
 
   addTask(value) {
-    this.store.dispatch({type: ADD_TASK, payload: {value, done: false}});
+    this.taskService.addTask(value);
     this.task = '';
   }
 
   deleteTask(index) {
-    this.store.dispatch({type: DELETE_TASK, payload: index});
+    this.taskService.deleteTask(index);
   }
 
   editTask(task, index) {
@@ -45,13 +45,13 @@ export class AppComponent implements OnInit {
   }
 
   updateTask(updatedTask) {
-    this.store.dispatch({type: UPDATE_TASK, payload: {index: this.indexToEdit, newValue: updatedTask}});
+    this.taskService.updateTask(updatedTask, this.indexToEdit);
     this.task = '';
     this.indexToEdit = null;
     this.editing = false;
   }
 
-  toggleDone(Task, index) {
-    this.store.dispatch({type: TOGGLE_DONE, payload: {index, done: Task.done}});
+  toggleDone(task, indexToToggle) {
+    this.taskService.toggleDone(task, indexToToggle);
   }
 }
