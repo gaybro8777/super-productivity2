@@ -5,12 +5,10 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {Task} from './task'
 import {Store} from '@ngrx/store';
-import {ADD_TASK, DELETE_TASK, TOGGLE_DONE, UPDATE_TASK, RELOAD_FROM_LS} from './task.actions';
+import {ADD_TASK, DELETE_TASK, RELOAD_FROM_LS, TOGGLE_DONE, UPDATE_TASK} from './task.actions';
 
 @Injectable()
 export class TaskService {
-  private LS_KEY = 'SUP';
-  private TASK_KEY = 'TASKS';
   tasks$: Observable<Array<Task>>;
 
   constructor(private store: Store<any>) {
@@ -24,12 +22,11 @@ export class TaskService {
     });
   }
 
-  addTask(task) {
+  addTask(title) {
     this.store.dispatch({
       type: ADD_TASK,
-      payload: {task, done: false}
+      payload: {title, done: false}
     });
-    // localStorage.tasks.push(task);
   }
 
   deleteTask(index) {

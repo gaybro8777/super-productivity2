@@ -23,7 +23,7 @@ export function TaskReducer(state = [], action: any) {
     case UPDATE_TASK:
       return state.map((item, index) => {
         return index === action.payload.index
-          ? Object.assign({}, item, {value: action.payload.newValue})
+          ? Object.assign({}, item, {title: action.payload.newValue})
           : item;
       });
     case TOGGLE_DONE:

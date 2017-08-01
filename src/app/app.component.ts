@@ -12,7 +12,7 @@ import {TaskService} from './tasks/task.service';
 })
 export class AppComponent implements OnInit {
   tasks$: Observable<any>;
-  task: string;
+  taskTitle: string;
   editing = false;
   indexToEdit: number | null;
 
@@ -23,9 +23,9 @@ export class AppComponent implements OnInit {
     this.tasks$ = this.taskService.tasks$;
   }
 
-  addTask(value) {
-    this.taskService.addTask(value);
-    this.task = '';
+  addTask(taskTitle) {
+    this.taskService.addTask(taskTitle);
+    this.taskTitle = '';
   }
 
   deleteTask(index) {
@@ -34,19 +34,19 @@ export class AppComponent implements OnInit {
 
   editTask(task, index) {
     this.editing = true;
-    this.task = task.value;
+    this.taskTitle = task.title;
     this.indexToEdit = index;
   }
 
   cancelEdit() {
     this.editing = false;
-    this.task = '';
+    this.taskTitle = '';
     this.indexToEdit = null;
   }
 
   updateTask(updatedTask) {
     this.taskService.updateTask(updatedTask, this.indexToEdit);
-    this.task = '';
+    this.taskTitle = '';
     this.indexToEdit = null;
     this.editing = false;
   }

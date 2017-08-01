@@ -11,6 +11,9 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/withLatestFrom';
 import {ADD_TASK} from "./task.actions";
 
+const LS_KEY = 'SUP';
+const TASK_KEY = 'TASKS';
+
 @Injectable()
 export class TaskEffects {
   constructor(private actions$: Actions,
@@ -33,6 +36,8 @@ export class TaskEffects {
     .ofType(ADD_TASK)
     .withLatestFrom(this.store$)
     .do((state) => {
+      console.log('I am here!');
+
       localStorage.setItem('tasks', JSON.stringify(state));
       return state;
     });
