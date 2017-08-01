@@ -5,36 +5,5 @@
   <i class="material-icons">face</i>
 </md-toolbar>
 
-<!--<router-outlet></router-outlet>-->
+<router-outlet></router-outlet>
 
-<input placeholder="your task" [(ngModel)]="taskTitle">
-{{editing}}
-
-<button
-  (click)="addTask(taskTitle)"
-  [disabled]="!taskTitle"
-  *ngIf="!editing">
-  Add task
-</button>
-
-<button
-  (click)="updateTask(taskTitle)"
-  *ngIf="editing">
-  Update
-</button>
-<button
-  (click)="cancelEdit()"
-  *ngIf="editing">
-  Cancel
-</button>
-
-
-<ul>
-  <li *ngFor="let task of tasks$ | async; let i = index;">
-    <span [class.done]="task.done">{{ task.title }}</span>
-    <span>{{task|json}}</span>
-    <button (click)="editTask(task, i)">Edit</button>
-    <button (click)="toggleDone(task, i)">Toggle Done</button>
-    <button (click)="deleteTask(i)">X</button>
-  </li>
-</ul>

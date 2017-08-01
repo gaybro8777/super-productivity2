@@ -8,27 +8,48 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MdToolbarModule} from '@angular/material';
+import {DndModule} from 'ng2-dnd';
+
 import {AppComponent} from './app.component';
 
 import {TaskReducer} from './tasks/task.reducer';
 import {TaskEffects} from './tasks/task.effects';
 import {TaskService} from './tasks/task.service';
+import { WorkViewComponent } from './work-view/work-view.component';
+import { TaskListComponent } from './task-list/task-list.component';
 
 
-const routes: Routes = [
-  {path: '', pathMatch: 'full', redirectTo: 'tasks'}
+
+export const appRoutes: Routes = [
+  {path: 'work-view', component: WorkViewComponent},
+  // {path: 'hero/:id', component: HeroDetailComponent},
+  // {
+  //   path: 'heroes',
+  //   component: HeroListComponent,
+  //   data: {title: 'Heroes List'}
+  // },
+  // {
+  //   path: '',
+  //   redirectTo: '/heroes',
+  //   pathMatch: 'full'
+  // },
+  {path: '**', component: WorkViewComponent}
 ];
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    WorkViewComponent,
+    TaskListComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
     MdToolbarModule,
-    RouterModule.forRoot(routes, {useHash: true}),
+    DndModule.forRoot(),
+    RouterModule.forRoot(appRoutes, {useHash: true}),
     StoreModule.forRoot({TaskReducer}),
     StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
