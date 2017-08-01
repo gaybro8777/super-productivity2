@@ -9,10 +9,19 @@ import {Store} from '@ngrx/store';
 // import 'rxjs/add/operator/toArray';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/withLatestFrom';
-import {ADD_TASK} from "./task.actions";
+import {ADD_TASK, DELETE_TASK, TOGGLE_DONE, UPDATE_TASK} from "./task.actions";
 
 const LS_KEY = 'SUP';
 const TASK_KEY = 'TASKS';
+
+
+// helper fn
+function syncToLs(state) {
+  console.log('SYNC');
+  const stateReducer = state[1];
+  const tasks = stateReducer.TaskReducer;
+  localStorage.setItem(LS_KEY + TASK_KEY, JSON.stringify(tasks));
+}
 
 @Injectable()
 export class TaskEffects {
@@ -20,38 +29,23 @@ export class TaskEffects {
               private store$: Store<any>) {
   }
 
-  // @Effect()
-  // loadTasks$: Observable<Action> = this.actions$
-  //   .ofType('REQUEST_TASKS')
-  //   .map(toPayload)
-  //   .switchMap(payload => this.taskService.loadTasks(/*payload*/))
-  //   .map((tasks: any) => this.taskActions.loadTasksSuccess(tasks)
-  //     .catch(() => of({
-  //       type: 'SOME_ERROR'
-  //     }))
-  //   );
-
-  // SYNCH WITH LS
   @Effect({dispatch: false}) addTask$: any = this.actions$
     .ofType(ADD_TASK)
     .withLatestFrom(this.store$)
-    .do((state) => {
-      console.log('I am here!');
+    .do(syncToLs);
 
-      localStorage.setItem('tasks', JSON.stringify(state));
-      return state;
-    });
+  @Effect({dispatch: false}) updateTask$: any = this.actions$
+    .ofType(UPDATE_TASK)
+    .withLatestFrom(this.store$)
+    .do(syncToLs);
 
-  // @Effect() addTask$ = this.actions$
-  //   .ofType(ADD_TASK)
-  //   .map(action => action.payload)
-  //   .switchMap(task => this.taskService.addTask(task))
-  //   .map(task => this.taskActions.addTaskSuccess(task));
+  @Effect({dispatch: false}) deleteTask$: any = this.actions$
+    .ofType(DELETE_TASK)
+    .withLatestFrom(this.store$)
+    .do(syncToLs);
 
-  //
-  // @Effect() deleteTask$ = this.actions$
-  //   .ofType('DELETE_BLOG')
-  //   .map(action => action.payload)
-  //   .switchMap(task => this.taskService.deleteTask(task))
-  //   .map(task => this.taskActions.deleteTaskSuccess(task));
+  @Effect({dispatch: false}) toggleDone$: any = this.actions$
+    .ofType(TOGGLE_DONE)
+    .withLatestFrom(this.store$)
+    .do(syncToLs);
 }
