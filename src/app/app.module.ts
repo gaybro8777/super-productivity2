@@ -13,7 +13,6 @@ import {AppComponent} from './app.component';
 import {TaskReducer} from './tasks/task.reducer';
 import {TaskEffects} from './tasks/task.effects';
 import {TaskService} from './tasks/task.service';
-import {TaskActions} from './tasks/task.actions';
 
 
 const routes: Routes = [
@@ -36,7 +35,7 @@ const routes: Routes = [
     }),
     EffectsModule.forRoot([TaskEffects]),
   ],
-  providers: [TaskService, TaskActions],
+  providers: [TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
