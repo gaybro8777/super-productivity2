@@ -11,7 +11,7 @@
 </button>
 
 <button
-  (click)="updateTask(taskTitle)"
+  (click)="updateTask(idToEdit,taskTitle)"
   *ngIf="editing">
   Update
 </button>
@@ -26,8 +26,8 @@
   <li *ngFor="let task of tasks$ | async; let i = index;">
     <span [class.done]="task.done">{{ task.title }}</span>
     <span>{{task|json}}</span>
-    <button (click)="editTask(task, i)">Edit</button>
-    <button (click)="toggleDone(task, i)">Toggle Done</button>
-    <button (click)="deleteTask(i)">X</button>
+    <button (click)="editTask(task, task.id)">Edit</button>
+    <button (click)="toggleDone(task, task.id)">Toggle Done</button>
+    <button (click)="deleteTask(task.id)">X</button>
   </li>
 </ul>

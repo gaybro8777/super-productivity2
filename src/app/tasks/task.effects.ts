@@ -11,16 +11,15 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/withLatestFrom';
 import {ADD_TASK, DELETE_TASK, TOGGLE_DONE, UPDATE_TASK} from "./task.actions";
 
-const LS_KEY = 'SUP';
-const TASK_KEY = 'TASKS';
+import {LS_TASKS} from '../app.constants'
 
 
 // helper fn
 function syncToLs(state) {
-  console.log('SYNC');
   const stateReducer = state[1];
   const tasks = stateReducer.TaskReducer;
-  localStorage.setItem(LS_KEY + TASK_KEY, JSON.stringify(tasks));
+  console.log('SYNC', tasks);
+  localStorage.setItem(LS_TASKS, JSON.stringify(tasks));
 }
 
 @Injectable()

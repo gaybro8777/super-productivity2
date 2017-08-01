@@ -13,7 +13,7 @@ export class TaskListComponent implements OnInit {
   @Input() tasks$: Observable<any>;
   taskTitle: string;
   editing = false;
-  indexToEdit: number | null;
+  idToEdit: number | null;
 
   constructor(private taskService: TaskService) {
   }
@@ -27,30 +27,29 @@ export class TaskListComponent implements OnInit {
     this.taskTitle = '';
   }
 
-  deleteTask(index) {
-    this.taskService.deleteTask(index);
+  deleteTask(taskId) {
+    this.taskService.deleteTask(taskId);
   }
 
-  editTask(task, index) {
+  editTask(task) {
     this.editing = true;
     this.taskTitle = task.title;
-    this.indexToEdit = index;
+    this.idToEdit = task.id;
   }
 
   cancelEdit() {
     this.editing = false;
     this.taskTitle = '';
-    this.indexToEdit = null;
+    this.idToEdit = null;
   }
 
-  updateTask(updatedTask) {
-    this.taskService.updateTask(updatedTask, this.indexToEdit);
+  updateTask(idToEdit, taskTitle) {
+    this.taskService.updateTask(idToEdit, {title: taskTitle});
     this.taskTitle = '';
-    this.indexToEdit = null;
     this.editing = false;
   }
 
-  toggleDone(task, indexToToggle) {
-    this.taskService.toggleDone(task, indexToToggle);
+  toggleDone(task) {
+    this.taskService.toggleDone(task);
   }
 }

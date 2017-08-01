@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import shortid from 'shortid'
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/map';
@@ -6,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import {Task} from './task'
 import {Store} from '@ngrx/store';
 import {ADD_TASK, DELETE_TASK, RELOAD_FROM_LS, TOGGLE_DONE, UPDATE_TASK} from './task.actions';
+
 
 @Injectable()
 export class TaskService {
@@ -25,33 +27,36 @@ export class TaskService {
   addTask(title) {
     this.store.dispatch({
       type: ADD_TASK,
-      payload: {title, done: false}
+      payload: {
+        title,
+        id: shortid(),
+        done: false
+      }
     });
   }
 
-  deleteTask(index) {
+  deleteTask(taskId) {
     this.store.dispatch({
       type: DELETE_TASK,
-      payload: index
+      payload: taskId
     });
   }
 
 
-  updateTask(updatedTask, indexToEdit) {
+  updateTask(taskId, changedFields) {
     this.store.dispatch({
       type: UPDATE_TASK,
       payload: {
-        index: indexToEdit, newValue: updatedTask
+        id: taskId,
+        changedFields: changedFields
       }
     });
   }
 
-  toggleDone(task, indexToToggle) {
+  toggleDone(task) {
     this.store.dispatch({
       type: TOGGLE_DONE,
-      payload: {
-        index: indexToToggle, done: task.done
-      }
+      payload: task
     });
   }
 
