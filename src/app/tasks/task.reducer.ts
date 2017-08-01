@@ -15,20 +15,24 @@ export function TaskReducer(state = [], action: any) {
 
     case ADD_TASK:
       return [action.payload, ...state];
+
     case DELETE_TASK:
       return state.filter((item) => item.id !== action.payload);
+
     case UPDATE_TASK:
       return state.map((item) => {
         return item.id === action.payload.id
           ? Object.assign({}, item, action.payload.changedFields)
           : item;
       });
+
     case TOGGLE_DONE:
       return state.map((item) => {
         return item.id === action.payload.id
           ? Object.assign({}, item, {done: !action.payload.done})
           : item;
       });
+
     default:
       return state;
   }
