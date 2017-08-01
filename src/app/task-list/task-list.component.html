@@ -1,33 +1,53 @@
-<!--<router-outlet></router-outlet>-->
+<section class="mat-typography">
+  <input placeholder="your task"
+         [(ngModel)]="taskTitle">
 
-<input placeholder="your task" [(ngModel)]="taskTitle">
-{{editing}}
+  <button
+    (click)="addTask(taskTitle)"
+    [disabled]="!taskTitle"
+    *ngIf="!editing">
+    Add task
+  </button>
 
-<button
-  (click)="addTask(taskTitle)"
-  [disabled]="!taskTitle"
-  *ngIf="!editing">
-  Add task
-</button>
-
-<button
-  (click)="updateTask(idToEdit,taskTitle)"
-  *ngIf="editing">
-  Update
-</button>
-<button
-  (click)="cancelEdit()"
-  *ngIf="editing">
-  Cancel
-</button>
+  <button
+    (click)="updateTask(idToEdit,taskTitle)"
+    *ngIf="editing">
+    Update
+  </button>
+  <button
+    (click)="cancelEdit()"
+    *ngIf="editing">
+    Cancel
+  </button>
 
 
-<ul>
-  <li *ngFor="let task of tasks$ | async; let i = index;">
-    <span [class.done]="task.done">{{ task.title }}</span>
-    <span>{{task|json}}</span>
-    <button (click)="editTask(task, task.id)">Edit</button>
-    <button (click)="toggleDone(task, task.id)">Toggle Done</button>
-    <button (click)="deleteTask(task.id)">X</button>
-  </li>
-</ul>
+  <ul dnd-sortable-container
+      class="task-list"
+      [sortableData]="tasks$ | async">
+    <li *ngFor="let task of tasks$ | async; let i = index;"
+        dnd-sortable
+        [sortableIndex]="i"
+        class="task"
+        [class.is-done]="task.done">
+      <div class="first-line"
+           layout="row"
+           as-sortable-item-handle
+           layout-align="space-between center">
+
+        <button md-icon-button
+                *ngIf="!task.done">
+          <i class="material-icons"
+             *ngIf="task.done">play_circle_filled</i>
+          <i class="material-icons"
+             *ngIf="!task.done">pause_circle_filled</i>
+        </button>
+
+        <span class="title">{{ task.title }}</span>
+        <span>{{task|json}}</span>
+        <button (click)="editTask(task, task.id)">Edit</button>
+        <button (click)="toggleDone(task, task.id)">Toggle Done</button>
+        <button (click)="deleteTask(task.id)">X</button>
+      </div>
+    </li>
+  </ul>
+</section>

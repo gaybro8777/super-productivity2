@@ -1,3 +1,359 @@
-.done{
-  text-decoration: line-through;
+@import '../_variables.scss';
+
+task-list {
+  display: block;
+}
+
+.task-list {
+  text-align: left;
+  min-height: 50px;
+  list-style: none;
+  // add a little padding to top and bottom, to make drag dropping easier
+  padding: 5px 0;
+  margin: 0;
+  display: block;
+
+  .as-sortable-placeholder,
+  .dndPlaceholder {
+    margin: 1px 2px 5px 1px;
+    display: block;
+    min-height: 22px;
+    background-color: #dddddd;
+    body.dark-theme & {
+      background-color: $dark-theme-bg-darker;
+    }
+  }
+  &__backlog {
+  }
+}
+
+.task {
+  $this-inner-padding-left-right: 12px;
+  padding: 3px $this-inner-padding-left-right 0;
+  display: block;
+  margin-bottom: 6px;
+  background-color: #ffffff;
+  color: #333333;
+  body.dark-theme & {
+    background-color: $dark-theme-bg-lighter;
+    color: #dddddd;
+
+    &.is-done {
+      .time,
+      > .title,
+      > .first-line > .title {
+        color: #777777;
+      }
+    }
+  }
+
+  &.is-done {
+    .time,
+    > .title,
+    > .first-line > .title {
+      color: #aaaaaa;
+    }
+
+    > .title,
+    > .first-line > .title {
+      text-decoration: line-through;
+    }
+  }
+
+  &.as-sortable-dragging,
+  &:focus {
+    background: #eeeeee;
+    color: #000000;
+    body.dark-theme & {
+      background-color: $dark-theme-bg-darker;
+      color: #dddddd;
+    }
+  }
+
+  .first-line {
+    display: flex;
+    flex-wrap: nowrap;
+
+    // Button Stuff
+    ng-md-icon {
+      fill: gray;
+    }
+    .md-button,
+    md-checkbox {
+      padding: 4px 2px;
+      // always reserve space for buttons
+      min-width: 28px;
+      width: 32px;
+      height: 32px;
+      margin: 0;
+
+      &:hover {
+        transform: scale(1.4);
+      }
+    }
+    .play-btn {
+      padding-left: 0;
+      margin-left: -2px;
+
+      // move over original link btn
+      position: relative;
+      z-index: 1;
+    }
+
+    .original-link-btn {
+      margin-left: -2px;
+      margin-right: 10px;
+      ng-md-icon {
+        // hacky align icon inside link with the one inside the play button
+        margin-top: 2px;
+      }
+    }
+
+    md-checkbox {
+      margin-left: 6px;
+      min-width: 16px;
+      width: 32px;
+      height: 32px;
+    }
+
+    ng-md-icon {
+      min-width: 24px;
+    }
+
+    .update-icon {
+      fill: #000000;
+      body.dark-theme & {
+        fill: #ffffff;
+      }
+    }
+    .md-button {
+      &:hover,
+      &.is-active {
+        > ng-md-icon {
+          fill: #000000;
+          body.dark-theme & {
+            fill: #ffffff;
+          }
+        }
+      }
+    }
+  }
+
+  .controls {
+    white-space: nowrap;
+  }
+
+  .title {
+
+  }
+
+  ng-md-icon.delete-icon {
+    fill: $red !important;
+    body.dark-theme & {
+      fill: $red !important;
+    }
+  }
+
+  &.is-current {
+    background: $light-green;
+    color: #000000;
+
+    body.dark-theme & {
+      background-color: $dark-green;
+      color: #ffffff;
+    }
+
+    .md-bar {
+      background-color: $green !important;
+    }
+    .play-btn {
+      ng-md-icon {
+        fill: #000000 !important;
+        body.dark-theme & {
+          fill: #ffffff !important;
+        }
+      }
+    }
+  }
+  .md-bar {
+    background-color: #cccccc !important;
+  }
+
+  //md-checkbox.md-checked .md-icon {
+  //  background-color: $green;
+  //  body.dark-theme & {
+  //    background-color: $green;
+  //  }
+  //}
+
+  md-progress-linear {
+    margin-left: -12px;
+    margin-right: -12px;
+    width: auto;
+  }
+
+  md-progress-linear.md-default-theme .md-container,
+  md-progress-linear .md-container {
+    background: none;
+  }
+
+  .handle {
+    margin-right: 4px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .title {
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    .text {
+      outline: none;
+      display: block;
+      width: 100%;
+      min-height: 14px;
+    }
+  }
+
+  form {
+    width: 100%;
+  }
+  input {
+    outline: none;
+  }
+  input {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    height: 30px;
+    padding: 4px 10px;
+    border: none;
+  }
+
+  .time {
+    white-space: nowrap;
+    margin-left: 10px;
+  }
+
+  .notes {
+    display: block;
+    margin-left: -$this-inner-padding-left-right;
+    margin-right: -$this-inner-padding-left-right;
+    overflow: hidden;
+    padding-left: $this-inner-padding-left-right;
+    padding-right: $this-inner-padding-left-right;
+
+    section {
+      margin-top: 10px;
+    }
+
+    .md-caption {
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+  }
+
+  a {
+    cursor: pointer;
+  }
+
+  .status {
+    margin-bottom: 10px;
+  }
+  .changelog,
+  .comments,
+  .attachments {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0;
+    margin: 0 0 10px;
+    list-style-type: none;
+    li {
+      padding: 0;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  }
+
+  .comments {
+    li {
+      position: relative;
+      margin-top: 16px;
+      &:first-child {
+        margin-top: 8px;
+        &:before {
+          display: none;
+        }
+      }
+    }
+    p:first-child {
+      display: inline;
+    }
+    p {
+      margin-bottom: 8px;
+      margin-top: 8px;
+    }
+  }
+
+}
+
+// animations
+.is-animation-ready {
+  .first-line {
+    .md-button,
+    md-checkbox {
+      transition: 300ms;
+    }
+  }
+
+  .task {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    &.ng-enter {
+      //opacity: 0;
+      transform: scaleY(0);
+    }
+    &.ng-enter-active {
+      //opacity: 1;
+      transform: scale(1);
+    }
+
+    &.ng-leave {
+      transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+      display: block;
+      opacity: 1;
+      transform: scale(1);
+    }
+    &.ng-leave-active {
+      display: block;
+      opacity: 0;
+      transform: scale(0);
+    }
+  }
+
+  .notes {
+    // animation
+    &.ng-enter,
+    &.ng-leave {
+      transition: all 0.3s $ease-in-out-quint;
+    }
+
+    &.ng-enter {
+      opacity: 0;
+      max-height: 0;
+    }
+
+    &.ng-enter.ng-enter-active {
+      opacity: 1;
+      max-height: 400px;
+    }
+    &.ng-leave {
+      opacity: 1;
+      max-height: 200px;
+    }
+
+    &.ng-leave.ng-leave-active {
+      max-height: 0;
+      opacity: 1;
+    }
+  }
 }

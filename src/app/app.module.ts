@@ -7,7 +7,7 @@ import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MdToolbarModule} from '@angular/material';
+import {MdToolbarModule,MdButtonModule} from '@angular/material';
 import {DndModule} from 'ng2-dnd';
 
 import {AppComponent} from './app.component';
@@ -48,6 +48,7 @@ export const appRoutes: Routes = [
     FormsModule,
     BrowserAnimationsModule,
     MdToolbarModule,
+    MdButtonModule,
     DndModule.forRoot(),
     RouterModule.forRoot(appRoutes, {useHash: true}),
     StoreModule.forRoot({TaskReducer}),
