@@ -1,10 +1,7 @@
 @import '../_variables.scss';
 
-task-list {
-  display: block;
-}
-
 .task-list {
+  display: block;
   text-align: left;
   min-height: 50px;
   list-style: none;
@@ -34,6 +31,7 @@ task-list {
   margin-bottom: 6px;
   background-color: #ffffff;
   color: #333333;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
   body.dark-theme & {
     background-color: $dark-theme-bg-lighter;
     color: #dddddd;
