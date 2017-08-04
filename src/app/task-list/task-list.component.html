@@ -28,7 +28,7 @@
         dnd-sortable
         [sortableIndex]="i"
         class="task"
-        [class.is-done]="task.done">
+        [class.is-done]="task.isDone">
       <div class="first-line"
            layout="row"
            as-sortable-item-handle
@@ -36,15 +36,14 @@
 
         <button md-icon-button
                 (click)="startTask(task.id)"
-                *ngIf="!task.done && !task.isCurrent">
+                *ngIf="!task.isDone && !task.isCurrent">
           <i class="material-icons">play_circle_filled</i>
         </button>
 
         <button md-icon-button
                 (click)="pauseTask(task.id)"
-                *ngIf="!task.done && task.isCurrent">
-          <i class="material-icons"
-             *ngIf="!task.done">pause_circle_filled</i>
+                *ngIf="!task.isDone && task.isCurrent">
+          <i class="material-icons">pause_circle_filled</i>
         </button>
 
         <span class="title">{{ task.title }}</span>

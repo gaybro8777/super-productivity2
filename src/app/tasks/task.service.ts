@@ -31,7 +31,7 @@ export class TaskService {
       payload: {
         title,
         id: shortid(),
-        done: false
+        isDone: false
       }
     });
   }

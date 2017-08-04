@@ -37,7 +37,7 @@ export function TaskReducer(state = [], action: any) {
     case TOGGLE_DONE:
       return state.map((item) => {
         return item.id === action.payload.id
-          ? Object.assign({}, item, {done: !action.payload.done})
+          ? Object.assign({}, item, {done: !action.payload.isDone})
           : item;
       });
 

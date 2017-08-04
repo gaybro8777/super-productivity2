@@ -1,6 +1,7 @@
 export class Task {
   id: string;
   title: string;
-  done: boolean;
+  isDone: boolean;
+  isCurrent: boolean;
   summary: string;
 }
