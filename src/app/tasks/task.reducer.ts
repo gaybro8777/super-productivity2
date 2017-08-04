@@ -1,5 +1,13 @@
 // import { Action } from '@ngrx/store';
-import {ADD_TASK, DELETE_TASK, RELOAD_FROM_LS, TOGGLE_DONE, UPDATE_TASK} from './task.actions';
+import {
+  ADD_TASK,
+  DELETE_TASK,
+  RELOAD_FROM_LS,
+  SET_CURRENT_TASK,
+  TOGGLE_DONE,
+  UNSET_CURRENT_TASK,
+  UPDATE_TASK
+} from './task.actions';
 import {LS_TASKS} from '../app.constants'
 
 // export function TaskReducer(state = [], action: Action) {
@@ -32,6 +40,34 @@ export function TaskReducer(state = [], action: any) {
           ? Object.assign({}, item, {done: !action.payload.done})
           : item;
       });
+
+    case SET_CURRENT_TASK:
+      return state.map((item) => {
+        if (item.id === action.payload) {
+          return Object.assign({}, item, {isCurrent: true});
+        } else {
+          const taskCopy = Object.assign({}, item);
+          if (taskCopy.hasOwnProperty('isCurrent')) {
+            delete taskCopy.isCurrent;
+            return taskCopy;
+          } else {
+            return item;
+          }
+        }
+      });
+
+    case UNSET_CURRENT_TASK:
+      return state.map((item) => {
+        const taskCopy = Object.assign({}, item);
+        if (taskCopy.hasOwnProperty('isCurrent')) {
+          delete taskCopy.isCurrent;
+          return taskCopy;
+        } else {
+          return item;
+        }
+      });
+
+    // case GET_CURRENT_TASK:
 
     default:
       return state;

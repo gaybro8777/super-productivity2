@@ -31,6 +31,15 @@ export class TaskListComponent implements OnInit {
     this.taskService.deleteTask(taskId);
   }
 
+
+  startTask(taskId){
+    this.taskService.setCurrentTask(taskId);
+  }
+
+  pauseTask(){
+    this.taskService.pauseCurrentTask();
+  }
+
   editTask(task) {
     this.editing = true;
     this.taskTitle = task.title;

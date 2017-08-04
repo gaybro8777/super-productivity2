@@ -35,9 +35,14 @@
            layout-align="space-between center">
 
         <button md-icon-button
-                *ngIf="!task.done">
-          <i class="material-icons"
-             *ngIf="task.done">play_circle_filled</i>
+                (click)="startTask(task.id)"
+                *ngIf="!task.done && !task.isCurrent">
+          <i class="material-icons">play_circle_filled</i>
+        </button>
+
+        <button md-icon-button
+                (click)="pauseTask(task.id)"
+                *ngIf="!task.done && task.isCurrent">
           <i class="material-icons"
              *ngIf="!task.done">pause_circle_filled</i>
         </button>

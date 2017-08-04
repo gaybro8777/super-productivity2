@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import {Task} from './task'
 import {Store} from '@ngrx/store';
 import {ADD_TASK, DELETE_TASK, RELOAD_FROM_LS, TOGGLE_DONE, UPDATE_TASK} from './task.actions';
+import {SET_CURRENT_TASK, UNSET_CURRENT_TASK} from './task.actions';
 
 
 @Injectable()
@@ -50,6 +51,19 @@ export class TaskService {
         id: taskId,
         changedFields: changedFields
       }
+    });
+  }
+
+  setCurrentTask(taskId){
+    this.store.dispatch({
+      type: SET_CURRENT_TASK,
+      payload:  taskId,
+    });
+  }
+
+  pauseCurrentTask(){
+    this.store.dispatch({
+      type: UNSET_CURRENT_TASK,
     });
   }
 
