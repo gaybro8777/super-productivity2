@@ -9,17 +9,6 @@
     Add task
   </button>
 
-  <button
-    (click)="updateTask(idToEdit,taskTitle)"
-    *ngIf="editing">
-    Update
-  </button>
-  <button
-    (click)="cancelEdit()"
-    *ngIf="editing">
-    Cancel
-  </button>
-
 
   <ul dnd-sortable-container
       class="task-list"
@@ -92,16 +81,20 @@
         <!--aria-label="link"></i>-->
         <!--</button>-->
 
-        <!--<div class="title"-->
-             <!--flex="auto"-->
-             <!--layout="row"-->
-             <!--layout-align="center center">-->
+        <div class="title"
+             flex="auto"
+             layout="row"
+             layout-align="center center">
+          <app-edit-on-click class="text"
+                             [value]="task.title"
+                             (editFinished)="updateTask(task.id, $event.newVal); focusLastFocusedTaskEl()"
+                             tabindex="2"></app-edit-on-click>
           <!--<span class="text"-->
-                <!--tabindex="2"-->
-                <!--edit-on-click-on-edit-finished="$ctrl.focusLastFocusedTaskEl(); $ctrl.onChangeTitle(task, isChanged, newVal);"-->
-                <!--edit-on-click-ev-id="task.id"-->
-                <!--edit-on-click="task.title"></span>-->
-        <!--</div>-->
+          <!--tabindex="2"-->
+          <!--edit-on-click-on-edit-finished="$ctrl.focusLastFocusedTaskEl(); $ctrl.onChangeTitle(task, isChanged, newVal);"-->
+          <!--edit-on-click-ev-id="task.id"-->
+          <!--edit-on-click="task.title"></span>-->
+        </div>
 
         <div class="time">
           <!--<span *ngIf="task.subTasks.length>0">∑</span>-->
@@ -158,94 +151,94 @@
 
 
       <!--<div class="notes"-->
-           <!--*ngIf="task.showNotes===true">-->
+      <!--*ngIf="task.showNotes===true">-->
 
-        <!--<section *ngIf="task.isUpdated;">-->
-          <!--<div class="md-caption">-->
-            <!--Changes since last update-->
-          <!--</div>-->
+      <!--<section *ngIf="task.isUpdated;">-->
+      <!--<div class="md-caption">-->
+      <!--Changes since last update-->
+      <!--</div>-->
 
-          <!--&lt;!&ndash;<ul class="changelog">&ndash;&gt;-->
-            <!--&lt;!&ndash;<li *ngFor="let changelogEntry of task.originalChangelog">&ndash;&gt;-->
-              <!--&lt;!&ndash;<div *ngIf="changelogEntry.author">&ndash;&gt;-->
-                <!--&lt;!&ndash;<em>[<span [innerHtml]="changelogEntry.author"></span>]&ndash;&gt;-->
-                  <!--&lt;!&ndash;&lt;!&ndash;<span [innerHtml]="changelogEntry.created| amDateFormat:'Y.MM.DD HH:mm'"></span></em>&ndash;&gt;&ndash;&gt;-->
-              <!--&lt;!&ndash;</div>&ndash;&gt;-->
-              <!--&lt;!&ndash;<div *ngFor="let change of changelogEntry.items">&ndash;&gt;-->
-                <!--&lt;!&ndash;<strong [innerHtml]="change.field"></strong>&ndash;&gt;-->
-                <!--&lt;!&ndash;<span *ngIf="change.toString.length"><em>changed to:</em> <span [innerHtml]="change.toString"></span></span></span>&ndash;&gt;-->
-              <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;</li>&ndash;&gt;-->
-          <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-          <!--<button md-raised-button-->
-                  <!--(click)="task.isUpdated=false;task.originalChangelog=undefined;task.showNotes=false">-->
-            <!--<i class="material-icons">delete</i>-->
-            <!--Hide changes-->
-          <!--</button>-->
-        <!--</section>-->
+      <!--&lt;!&ndash;<ul class="changelog">&ndash;&gt;-->
+      <!--&lt;!&ndash;<li *ngFor="let changelogEntry of task.originalChangelog">&ndash;&gt;-->
+      <!--&lt;!&ndash;<div *ngIf="changelogEntry.author">&ndash;&gt;-->
+      <!--&lt;!&ndash;<em>[<span [innerHtml]="changelogEntry.author"></span>]&ndash;&gt;-->
+      <!--&lt;!&ndash;&lt;!&ndash;<span [innerHtml]="changelogEntry.created| amDateFormat:'Y.MM.DD HH:mm'"></span></em>&ndash;&gt;&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--&lt;!&ndash;<div *ngFor="let change of changelogEntry.items">&ndash;&gt;-->
+      <!--&lt;!&ndash;<strong [innerHtml]="change.field"></strong>&ndash;&gt;-->
+      <!--&lt;!&ndash;<span *ngIf="change.toString.length"><em>changed to:</em> <span [innerHtml]="change.toString"></span></span></span>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--&lt;!&ndash;</li>&ndash;&gt;-->
+      <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+      <!--<button md-raised-button-->
+      <!--(click)="task.isUpdated=false;task.originalChangelog=undefined;task.showNotes=false">-->
+      <!--<i class="material-icons">delete</i>-->
+      <!--Hide changes-->
+      <!--</button>-->
+      <!--</section>-->
 
-        <!--<section>-->
-          <!--<div class="md-caption"-->
-               <!--[innerHtml]="task.originalId ? 'Description': 'Notes'"></div>-->
-          <!--<div md-whiteframe="4">-->
-            <!--<inline-markdown ng-model="task.notes"-->
-                             <!--on-changed="onTaskNotesChanged(newVal, task)"></inline-markdown>-->
-          <!--</div>-->
-        <!--</section>-->
+      <!--<section>-->
+      <!--<div class="md-caption"-->
+      <!--[innerHtml]="task.originalId ? 'Description': 'Notes'"></div>-->
+      <!--<div md-whiteframe="4">-->
+      <!--<inline-markdown ng-model="task.notes"-->
+      <!--on-changed="onTaskNotesChanged(newVal, task)"></inline-markdown>-->
+      <!--</div>-->
+      <!--</section>-->
 
-        <!--<section *ngIf="task.status.length > 0 || task.originalStatus.length > 0"-->
-                 <!--class="status">-->
-          <!--<div class="md-caption">Status: <span [innerHtml]="task.originalStatus.name || task.originalStatus"></span>-->
-            <!--<i icon="arrow_forward"-->
-               <!--*ngIf="task.status.length > 0"-->
-               <!--aria-label="arrow forward"></i>-->
-            <!--<span [innerHtml]="task.status"></span>-->
-          <!--</div>-->
-        <!--</section>-->
+      <!--<section *ngIf="task.status.length > 0 || task.originalStatus.length > 0"-->
+      <!--class="status">-->
+      <!--<div class="md-caption">Status: <span [innerHtml]="task.originalStatus.name || task.originalStatus"></span>-->
+      <!--<i icon="arrow_forward"-->
+      <!--*ngIf="task.status.length > 0"-->
+      <!--aria-label="arrow forward"></i>-->
+      <!--<span [innerHtml]="task.status"></span>-->
+      <!--</div>-->
+      <!--</section>-->
 
-        <!--<section *ngIf="task.originalAssigneeKey"-->
-                 <!--class="assignee">-->
-          <!--<div class="md-caption">Assignee: <span [innerHtml]="task.originalAssigneeKey"></span></div>-->
-        <!--</section>-->
+      <!--<section *ngIf="task.originalAssigneeKey"-->
+      <!--class="assignee">-->
+      <!--<div class="md-caption">Assignee: <span [innerHtml]="task.originalAssigneeKey"></span></div>-->
+      <!--</section>-->
 
-        <!--<section *ngIf="task.originalAttachment.length > 0">-->
-          <!--<collapsible title="Attachments ({{ task.originalAttachment.length }})">-->
-            <!--<ul class="attachments">-->
-              <!--<li ng-repeat="attachment in task.originalAttachment">-->
-                <!--<a href="{{ attachment}}"-->
-                   <!--external-link-->
-                   <!--target="_blank"-->
-                   <!--class="md-accent">{{ attachment}}</a>-->
-                <!--<a href="{{ attachment}}"-->
-                   <!--download="{{ attachment}}"-->
-                   <!--class="md-accent">-->
-                  <!--<i icon="file_download"-->
-                     <!--aria-label="download file directly"></i>-->
-                <!--</a>-->
-              <!--</li>-->
-            <!--</ul>-->
-          <!--</collapsible>-->
-        <!--</section>-->
+      <!--<section *ngIf="task.originalAttachment.length > 0">-->
+      <!--<collapsible title="Attachments ({{ task.originalAttachment.length }})">-->
+      <!--<ul class="attachments">-->
+      <!--<li ng-repeat="attachment in task.originalAttachment">-->
+      <!--<a href="{{ attachment}}"-->
+      <!--external-link-->
+      <!--target="_blank"-->
+      <!--class="md-accent">{{ attachment}}</a>-->
+      <!--<a href="{{ attachment}}"-->
+      <!--download="{{ attachment}}"-->
+      <!--class="md-accent">-->
+      <!--<i icon="file_download"-->
+      <!--aria-label="download file directly"></i>-->
+      <!--</a>-->
+      <!--</li>-->
+      <!--</ul>-->
+      <!--</collapsible>-->
+      <!--</section>-->
 
-        <!--<section *ngIf="task.originalComments.length > 0">-->
-          <!--<collapsible title="Comments ({{ task.originalComments.length }})">-->
-            <!--<md-divider></md-divider>-->
-            <!--<ul class="comments">-->
-              <!--<li ng-repeat="comment in task.originalComments"-->
-                  <!--class="comment">-->
-                <!--<strong class="author">[<span [innerHtml]="comment.author"></span>]: </strong>-->
-                <!--<span marked="comment.body"></span>-->
-              <!--</li>-->
-            <!--</ul>-->
-          <!--</collapsible>-->
-        <!--</section>-->
+      <!--<section *ngIf="task.originalComments.length > 0">-->
+      <!--<collapsible title="Comments ({{ task.originalComments.length }})">-->
+      <!--<md-divider></md-divider>-->
+      <!--<ul class="comments">-->
+      <!--<li ng-repeat="comment in task.originalComments"-->
+      <!--class="comment">-->
+      <!--<strong class="author">[<span [innerHtml]="comment.author"></span>]: </strong>-->
+      <!--<span marked="comment.body"></span>-->
+      <!--</li>-->
+      <!--</ul>-->
+      <!--</collapsible>-->
+      <!--</section>-->
 
       <!--</div>-->
 
       <!--<sub-task-list ng-if="task.subTasks.length > 0"-->
-                     <!--allow-task-selection="{{$ctrl.allowTaskSelection}}"-->
-                     <!--current-task-id="$ctrl.currentTaskId"-->
-                     <!--task="task"></sub-task-list>-->
+      <!--allow-task-selection="{{$ctrl.allowTaskSelection}}"-->
+      <!--current-task-id="$ctrl.currentTaskId"-->
+      <!--task="task"></sub-task-list>-->
     </li>
   </ul>
 </section>

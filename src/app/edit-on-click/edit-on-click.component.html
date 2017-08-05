@@ -1,0 +1,13 @@
+<form *ngIf="isShowEdit"
+      class="edit-on-click-form"
+      (submit)="finishEdit()"
+      md-whiteframe="3">
+  <input (blur)="finishEdit()"
+         title="Edit"
+         tabindex="2">
+</form>
+<div class="text edit-on-click-text"
+     tabindex="2"
+     (click)="toggleShowEdit()"
+     [innerHtml]="value">
+</div>

@@ -53,6 +53,8 @@ export class TaskListComponent implements OnInit {
   }
 
   updateTask(idToEdit, taskTitle) {
+    console.log(taskTitle);
+
     this.taskService.updateTask(idToEdit, {title: taskTitle});
     this.taskTitle = '';
     this.editing = false;
@@ -67,4 +69,6 @@ export class TaskListComponent implements OnInit {
   addSubtask(){}
 
   onTaskNotesChanged(){}
+
+  focusLastFocusedTaskEl(){}
 }

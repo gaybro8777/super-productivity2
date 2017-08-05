@@ -17,6 +17,7 @@ import {TaskEffects} from './tasks/task.effects';
 import {TaskService} from './tasks/task.service';
 import { WorkViewComponent } from './work-view/work-view.component';
 import { TaskListComponent } from './task-list/task-list.component';
+import { EditOnClickComponent } from './edit-on-click/edit-on-click.component';
 
 
 
@@ -41,7 +42,8 @@ export const appRoutes: Routes = [
   declarations: [
     AppComponent,
     WorkViewComponent,
-    TaskListComponent
+    TaskListComponent,
+    EditOnClickComponent
   ],
   imports: [
     BrowserModule,
