@@ -61,4 +61,10 @@ export class TaskListComponent implements OnInit {
   toggleDone(task) {
     this.taskService.toggleDone(task);
   }
+
+  estimateTime(){}
+
+  addSubtask(){}
+
+  onTaskNotesChanged(){}
 }
