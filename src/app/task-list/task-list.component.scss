@@ -8,25 +8,24 @@
   // add a little padding to top and bottom, to make drag dropping easier
   padding: 5px 0;
   margin: 0;
-  display: block;
 
-  .as-sortable-placeholder,
-  .dndPlaceholder {
-    margin: 1px 2px 5px 1px;
-    display: block;
-    min-height: 22px;
-    background-color: #dddddd;
-    body.dark-theme & {
-      background-color: $dark-theme-bg-darker;
-    }
-  }
+  //.as-sortable-placeholder,
+  //.dndPlaceholder {
+  //  margin: 1px 2px 5px 1px;
+  //  display: block;
+  //  min-height: 22px;
+  //  background-color: #dddddd;
+  //  body.dark-theme & {
+  //    background-color: $dark-theme-bg-darker;
+  //  }
+  //}
   &__backlog {
   }
 }
 
 .task {
   $this-inner-padding-left-right: 12px;
-  padding: 3px $this-inner-padding-left-right 0;
+  padding: 3px $this-inner-padding-left-right;
   display: block;
   margin-bottom: 6px;
   background-color: #ffffff;
@@ -70,13 +69,18 @@
 
   .first-line {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    max-width: 100%;
 
     // Button Stuff
-    ng-md-icon {
+    .material-icons {
       fill: gray;
     }
-    .md-button,
+    //.mat-icon-button,
     md-checkbox {
       padding: 4px 2px;
       // always reserve space for buttons
@@ -90,9 +94,13 @@
       }
     }
     .play-btn {
+      //flex: 0 0 ;
+      display: block;
+      justify-self: flex-start;
+      //margin-right: auto;
       padding-left: 0;
       margin-left: -2px;
-
+      //flex: none;
       // move over original link btn
       position: relative;
       z-index: 1;
@@ -101,20 +109,20 @@
     .original-link-btn {
       margin-left: -2px;
       margin-right: 10px;
-      ng-md-icon {
+      .material-icons {
         // hacky align icon inside link with the one inside the play button
         margin-top: 2px;
       }
     }
 
-    md-checkbox {
-      margin-left: 6px;
-      min-width: 16px;
-      width: 32px;
-      height: 32px;
-    }
+    //md-checkbox {
+    //  margin-left: 6px;
+    //  min-width: 16px;
+    //  width: 32px;
+    //  height: 32px;
+    //}
 
-    ng-md-icon {
+    .material-icons {
       min-width: 24px;
     }
 
@@ -124,10 +132,10 @@
         fill: #ffffff;
       }
     }
-    .md-button {
+    .mat-icon-button {
       &:hover,
       &.is-active {
-        > ng-md-icon {
+        > .material-icons {
           fill: #000000;
           body.dark-theme & {
             fill: #ffffff;
@@ -139,13 +147,18 @@
 
   .controls {
     white-space: nowrap;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
   }
 
   .title {
-
+    margin-right: auto;
+    flex-grow: 1;
   }
 
-  ng-md-icon.delete-icon {
+  .material-icons.delete-icon {
     fill: $red !important;
     body.dark-theme & {
       fill: $red !important;
@@ -165,7 +178,7 @@
       background-color: $green !important;
     }
     .play-btn {
-      ng-md-icon {
+      .material-icons {
         fill: #000000 !important;
         body.dark-theme & {
           fill: #ffffff !important;
@@ -199,6 +212,9 @@
     margin-right: 4px;
     margin-top: 0;
     margin-bottom: 0;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
   }
 
   .title {
@@ -298,7 +314,7 @@
 // animations
 .is-animation-ready {
   .first-line {
-    .md-button,
+    //.mat-icon-button,
     md-checkbox {
       transition: 300ms;
     }

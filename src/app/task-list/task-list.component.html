@@ -37,17 +37,15 @@
           <!--<md-tooltip>-->
           <!--Click to show updates-->
           <!--</md-tooltip>-->
-          <i class="update update-icon"
-             flex="none"
-             icon="update"></i>
+          <i class="material-icons update update-icon">update</i>
         </button>
 
 
-        <i class="handle material-icons"
-           flex="none">drag_handle</i>
+        <i class="handle material-icons">drag_handle</i>
 
 
         <button md-icon-button
+                class="play-btn"
                 (click)="startTask(task.id)"
                 aria-label="mark as current"
                 tabindex="2"
@@ -56,6 +54,7 @@
         </button>
 
         <button md-icon-button
+                class="play-btn"
                 (click)="pauseTask(task.id)"
                 tabindex="2"
                 *ngIf="!task.isDone && task.isCurrent">
@@ -125,8 +124,11 @@
                   [class.is-active]="task.showNotes"
                   (click)="task.showNotes=!task.showNotes">
 
-            <!--<i icon="{{(task.notes||task.originalKey) ?'insert_comment': 'mode_comment'}}"-->
-            <!--aria-label="notes"></i>-->
+            <i class="material-icons"
+               *ngIf="task.notes||task.originalKey"
+               aria-label="notes">insert_comment</i>
+            <i class="material-icons"
+               *ngIf="!task.notes&&!task.originalKey">mode_comment</i>
           </button>
           <button md-icon-button
                   aria-label="delete"
