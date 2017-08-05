@@ -7,7 +7,7 @@ import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MdToolbarModule,MdButtonModule} from '@angular/material';
+import {MdToolbarModule,MdButtonModule,MdCheckboxModule} from '@angular/material';
 import {DndModule} from 'ng2-dnd';
 
 import {AppComponent} from './app.component';
@@ -46,18 +46,26 @@ export const appRoutes: Routes = [
     EditOnClickComponent
   ],
   imports: [
+    // base
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
+    RouterModule.forRoot(appRoutes, {useHash: true}),
+
+    // material2
     MdToolbarModule,
     MdButtonModule,
-    DndModule.forRoot(),
-    RouterModule.forRoot(appRoutes, {useHash: true}),
+    MdCheckboxModule,
+
+    // store stuff
     StoreModule.forRoot({TaskReducer}),
     StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
     }),
     EffectsModule.forRoot([TaskEffects]),
+
+    // other
+    DndModule.forRoot(),
   ],
   providers: [TaskService],
   bootstrap: [AppComponent]

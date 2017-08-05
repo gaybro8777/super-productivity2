@@ -4,8 +4,7 @@
 
   <button
     (click)="addTask(taskTitle)"
-    [disabled]="!taskTitle"
-    *ngIf="!editing">
+    [disabled]="!taskTitle">
     Add task
   </button>
 
@@ -132,16 +131,16 @@
           <button md-icon-button
                   aria-label="delete"
                   tabindex="2"
-                  (click)="deleteTask(task, $index)">
+                  (click)="deleteTask(task.id)">
 
-            <i icon="delete_forever"
-               class="delete-icon"
-               aria-label="delete"></i>
+            <i class="material-icons delete-icon"
+               aria-label="delete">delete_forever</i>
           </button>
-          <md-checkbox ng-model="task.isDone"
+          <md-checkbox [(ngModel)]="task.isDone"
                        tabindex="2"
-                       ng-change="onTaskDoneChanged(task)"
-                       aria-label="un-/mark as done">
+                       (ngModelChange)="onTaskDoneChanged(task)"
+                       aria-label="un-/mark as done"
+                       ngDefaultControl>
           </md-checkbox>
         </div>
       </div>

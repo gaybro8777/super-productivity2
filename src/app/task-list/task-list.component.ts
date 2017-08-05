@@ -13,7 +13,6 @@ export class TaskListComponent implements OnInit {
   @Input() tasks$: Observable<any>;
   taskTitle: string;
   editing = false;
-  idToEdit: number | null;
 
   constructor(private taskService: TaskService) {
   }
@@ -40,24 +39,9 @@ export class TaskListComponent implements OnInit {
     this.taskService.pauseCurrentTask();
   }
 
-  editTask(task) {
-    this.editing = true;
-    this.taskTitle = task.title;
-    this.idToEdit = task.id;
-  }
-
-  cancelEdit() {
-    this.editing = false;
-    this.taskTitle = '';
-    this.idToEdit = null;
-  }
-
   updateTask(idToEdit, taskTitle) {
-    console.log(taskTitle);
-
     this.taskService.updateTask(idToEdit, {title: taskTitle});
     this.taskTitle = '';
-    this.editing = false;
   }
 
   toggleDone(task) {
@@ -67,6 +51,10 @@ export class TaskListComponent implements OnInit {
   estimateTime(){}
 
   addSubtask(){}
+
+  onTaskDoneChanged(){
+
+  }
 
   onTaskNotesChanged(){}
 
