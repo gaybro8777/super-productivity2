@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {TaskService} from '../tasks/task.service';
+import {Task} from '../tasks/task'
 
 @Component({
   selector: 'app-task-list',
@@ -10,7 +11,7 @@ import {TaskService} from '../tasks/task.service';
 
 })
 export class TaskListComponent implements OnInit {
-  @Input() tasks$: Observable<any>;
+  @Input() tasks$: Observable<[Task]>;
   taskTitle: string;
   editing = false;
 

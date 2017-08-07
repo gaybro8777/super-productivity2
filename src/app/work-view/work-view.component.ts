@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TaskService} from '../tasks/task.service';
 import {Observable} from 'rxjs/Observable';
+import {Task} from '../tasks/task'
 
 @Component({
   selector: 'app-work-view',
@@ -9,7 +10,7 @@ import {Observable} from 'rxjs/Observable';
   providers: [TaskService],
 })
 export class WorkViewComponent implements OnInit {
-  tasks$: Observable<any>;
+  tasks$: Observable<[Task]>;
 
   constructor(private taskService: TaskService) {
   }

@@ -3,5 +3,5 @@ export class Task {
   title: string;
   isDone: boolean;
   isCurrent: boolean;
-  summary: string;
+  notes: string;
 }
