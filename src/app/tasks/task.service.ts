@@ -1,12 +1,11 @@
 import {Injectable} from '@angular/core';
-import shortid from 'shortid'
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {Task} from './task'
 import {Store} from '@ngrx/store';
-import {ADD_TASK, DELETE_TASK, RELOAD_FROM_LS, TOGGLE_DONE, UPDATE_TASK} from './task.actions';
+import {ADD_TASK, DELETE_TASK, RELOAD_FROM_LS, TOGGLE_DONE, UPDATE_TASK, ADD_SUB_TASK} from './task.actions';
 import {SET_CURRENT_TASK, UNSET_CURRENT_TASK} from './task.actions';
 
 
@@ -30,7 +29,6 @@ export class TaskService {
       type: ADD_TASK,
       payload: {
         title,
-        id: shortid(),
         isDone: false
       }
     });
@@ -71,6 +69,13 @@ export class TaskService {
     this.store.dispatch({
       type: TOGGLE_DONE,
       payload: task
+    });
+  }
+
+  addSubTask(parentTask){
+    this.store.dispatch({
+      type: ADD_SUB_TASK,
+      payload: parentTask
     });
   }
 

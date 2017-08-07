@@ -79,10 +79,10 @@
         <!--aria-label="link"></i>-->
         <!--</button>-->
 
-          <app-edit-on-click class="title"
-                             [value]="task.title"
-                             (editFinished)="updateTask(task.id, $event.newVal); focusLastFocusedTaskEl()"
-                             tabindex="2"></app-edit-on-click>
+        <app-edit-on-click class="title"
+                           [value]="task.title"
+                           (editFinished)="updateTask(task.id, $event.newVal); focusLastFocusedTaskEl()"
+                           tabindex="2"></app-edit-on-click>
 
         <div class="time">
           <!--<span *ngIf="task.subTasks.length>0">∑</span>-->
@@ -230,6 +230,11 @@
       <!--allow-task-selection="{{$ctrl.allowTaskSelection}}"-->
       <!--current-task-id="$ctrl.currentTaskId"-->
       <!--task="task"></sub-task-list>-->
+      <div>
+        {{task.subTasks|json}}
+      </div>
+      <!--<app-task-list *ngIf="task.subTasks"-->
+                     <!--[tasks$]="task.subTasks"></app-task-list>-->
     </li>
   </ul>
 </section>

@@ -1,5 +1,6 @@
 // import { Action } from '@ngrx/store';
 import {
+  ADD_SUB_TASK,
   ADD_TASK,
   DELETE_TASK,
   RELOAD_FROM_LS,
@@ -9,6 +10,7 @@ import {
   UPDATE_TASK
 } from './task.actions';
 import {LS_TASKS} from '../app.constants'
+import shortid from 'shortid'
 
 // export function TaskReducer(state = [], action: Action) {
 export function TaskReducer(state = [], action: any) {
@@ -22,7 +24,8 @@ export function TaskReducer(state = [], action: any) {
       return [...lsTasks];
 
     case ADD_TASK:
-      return [action.payload, ...state];
+      const newTask = Object.assign(action.payload, {id: shortid()});
+      return [newTask, ...state];
 
     case DELETE_TASK:
       return state.filter((item) => item.id !== action.payload);
@@ -62,6 +65,23 @@ export function TaskReducer(state = [], action: any) {
         if (taskCopy.hasOwnProperty('isCurrent')) {
           delete taskCopy.isCurrent;
           return taskCopy;
+        } else {
+          return item;
+        }
+      });
+
+    case ADD_SUB_TASK:
+      return state.map((item) => {
+        if (item.id === action.payload.id) {
+          const updatedTask = Object.assign({}, item);
+          if (!updatedTask.subTasks) {
+            updatedTask.subTasks = [];
+          }
+          updatedTask.subTasks.push({
+            id: shortid()
+          });
+
+          return updatedTask;
         } else {
           return item;
         }

@@ -9,7 +9,7 @@ import {Store} from '@ngrx/store';
 // import 'rxjs/add/operator/toArray';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/withLatestFrom';
-import {ADD_TASK, DELETE_TASK, TOGGLE_DONE, UPDATE_TASK} from "./task.actions";
+import {ADD_TASK, DELETE_TASK, TOGGLE_DONE, UPDATE_TASK, ADD_SUB_TASK} from "./task.actions";
 
 import {LS_TASKS} from '../app.constants'
 
@@ -45,6 +45,11 @@ export class TaskEffects {
 
   @Effect({dispatch: false}) toggleDone$: any = this.actions$
     .ofType(TOGGLE_DONE)
+    .withLatestFrom(this.store$)
+    .do(syncToLs);
+
+  @Effect({dispatch: false}) addSubTask$: any = this.actions$
+    .ofType(ADD_SUB_TASK)
     .withLatestFrom(this.store$)
     .do(syncToLs);
 }

@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {TaskService} from '../tasks/task.service';
 import {Task} from '../tasks/task'
+import shortid from 'shortid'
 
 @Component({
   selector: 'app-task-list',
@@ -51,7 +52,9 @@ export class TaskListComponent implements OnInit {
 
   estimateTime(){}
 
-  addSubtask(){}
+  addSubTask(task){
+    this.taskService.addSubTask(task);
+  }
 
   onTaskDoneChanged(){
 
