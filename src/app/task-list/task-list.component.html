@@ -15,7 +15,7 @@
     <li *ngFor="let task of tasks$ | async; let i = index;"
         dnd-sortable
         [sortableIndex]="i"
-        class="task"
+        class="task mat-elevation-z4"
         [class.is-done]="task.isDone">
       <!--<div class="first-line"-->
       <!--layout="row"-->
@@ -79,20 +79,10 @@
         <!--aria-label="link"></i>-->
         <!--</button>-->
 
-        <div class="title"
-             flex="auto"
-             layout="row"
-             layout-align="center center">
-          <app-edit-on-click class="text"
+          <app-edit-on-click class="title"
                              [value]="task.title"
                              (editFinished)="updateTask(task.id, $event.newVal); focusLastFocusedTaskEl()"
                              tabindex="2"></app-edit-on-click>
-          <!--<span class="text"-->
-          <!--tabindex="2"-->
-          <!--edit-on-click-on-edit-finished="$ctrl.focusLastFocusedTaskEl(); $ctrl.onChangeTitle(task, isChanged, newVal);"-->
-          <!--edit-on-click-ev-id="task.id"-->
-          <!--edit-on-click="task.title"></span>-->
-        </div>
 
         <div class="time">
           <!--<span *ngIf="task.subTasks.length>0">∑</span>-->
