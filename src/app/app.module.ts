@@ -16,8 +16,9 @@ import {TaskReducer} from './tasks/task.reducer';
 import {TaskEffects} from './tasks/task.effects';
 import {TaskService} from './tasks/task.service';
 import { WorkViewComponent } from './work-view/work-view.component';
-import { TaskListComponent } from './task-list/task-list.component';
+import { TaskListComponent } from './tasks/task-list.component';
 import { EditOnClickComponent } from './edit-on-click/edit-on-click.component';
+import { TaskComponent } from './tasks/task.component';
 
 
 
@@ -43,7 +44,8 @@ export const appRoutes: Routes = [
     AppComponent,
     WorkViewComponent,
     TaskListComponent,
-    EditOnClickComponent
+    EditOnClickComponent,
+    TaskComponent
   ],
   imports: [
     // base

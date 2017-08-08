@@ -4,5 +4,5 @@ export class Task {
   isDone: boolean;
   isCurrent: boolean;
   notes: string;
-  subTasks: [any];
+  subTasks: [Task];
 }

@@ -1,0 +1,22 @@
+<section class="mat-typography">
+  <input placeholder="your task"
+         [(ngModel)]="taskTitle">
+
+  <button
+    (click)="addTask(taskTitle)"
+    [disabled]="!taskTitle">
+    Add task
+  </button>
+
+
+  <div dnd-sortable-container
+       class="task-list"
+       [sortableData]="tasks$ | async">
+    <app-task *ngFor="let task of tasks$ | async; let i = index;"
+              [task]="task"
+              dnd-sortable
+              [sortableIndex]="i"
+              [class.is-done]="task.isDone">
+    </app-task>
+  </div>
+</section>
