@@ -78,7 +78,8 @@ export function TaskReducer(state = [], action: any) {
             updatedTask.subTasks = [];
           }
           updatedTask.subTasks.push({
-            id: shortid()
+            id: shortid(),
+            title: ''
           });
 
           return updatedTask;

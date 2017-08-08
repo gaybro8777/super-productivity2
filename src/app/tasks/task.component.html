@@ -214,5 +214,14 @@
 <div>
   {{task.subTasks|json}}
 </div>
-<!--<app-task-list *ngIf="task.subTasks"-->
-<!--[tasks$]="task.subTasks"></app-task-list>-->
+<div class="sub-tasks"
+     dnd-sortable-container
+     *ngIf="task.subTasks"
+     [sortableData]="task.subTasks">
+  <app-task *ngFor="let task of task.subTasks; let i = index;"
+            [task]="task"
+            dnd-sortable
+            [sortableIndex]="i"
+            [class.is-done]="task.isDone">
+  </app-task>
+</div>

@@ -12,6 +12,7 @@ import {Task} from './task'
 })
 export class TaskListComponent implements OnInit {
   @Input() tasks$: Observable<[Task]>;
+  @Input() tasks: [Task];
   taskTitle: string;
 
   constructor(private taskService: TaskService) {
