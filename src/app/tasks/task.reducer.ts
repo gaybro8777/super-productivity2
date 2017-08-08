@@ -12,8 +12,10 @@ import {
 import {LS_TASKS} from '../app.constants'
 import shortid from 'shortid'
 
-// export function TaskReducer(state = [], action: Action) {
-export function TaskReducer(state = [], action: any) {
+const INITIAL_TASK_STATE = [];
+
+// export function TaskReducer(state = INITIAL_TASK_STATE, action: Action) {
+export function TaskReducer(state = INITIAL_TASK_STATE, action: any) {
   switch (action.type) {
     case RELOAD_FROM_LS:
       const LS_INITIAL = JSON.parse(localStorage.getItem(LS_TASKS));
@@ -32,9 +34,21 @@ export function TaskReducer(state = [], action: any) {
 
     case UPDATE_TASK:
       return state.map((item) => {
-        return item.id === action.payload.id
-          ? Object.assign({}, item, action.payload.changedFields)
-          : item;
+        if (item.id === action.payload.id) {
+          return Object.assign({}, item, action.payload.changedFields);
+        } else if (item.subTasks) {
+          const taskCopy = Object.assign({}, item);
+          item.subTasks.forEach((subItem, index) => {
+            const taskCopy = Object.assign({}, item);
+            if (subItem.id === action.payload.id) {
+              taskCopy.subTasks[index] = Object.assign({}, subItem, action.payload.changedFields);
+            }
+          });
+          return taskCopy || item;
+        } else {
+          return item;
+        }
+
       });
 
     case TOGGLE_DONE:
@@ -48,6 +62,10 @@ export function TaskReducer(state = [], action: any) {
       return state.map((item) => {
         if (item.id === action.payload) {
           return Object.assign({}, item, {isCurrent: true});
+        } else if (item.subTasks) {
+          item.subTasks.forEach((subItem) => {
+            // subItem
+          });
         } else {
           const taskCopy = Object.assign({}, item);
           if (taskCopy.hasOwnProperty('isCurrent')) {
@@ -79,7 +97,9 @@ export function TaskReducer(state = [], action: any) {
           }
           updatedTask.subTasks.push({
             id: shortid(),
-            title: ''
+            parentId: item.id,
+            title: '',
+            isDone: false
           });
 
           return updatedTask;
