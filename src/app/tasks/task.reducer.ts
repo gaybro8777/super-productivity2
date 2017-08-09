@@ -4,11 +4,11 @@ import {
   ADD_TASK,
   DELETE_TASK,
   RELOAD_FROM_LS,
+  REORDER_TASKS,
   SET_CURRENT_TASK,
   TOGGLE_DONE,
   UNSET_CURRENT_TASK,
-  UPDATE_TASK,
-  REORDER_TASKS
+  UPDATE_TASK
 } from './task.actions';
 import {LS_TASKS} from '../app.constants'
 import shortid from 'shortid'
@@ -38,11 +38,14 @@ export function TaskReducer(state = INITIAL_TASK_STATE, action: any) {
         if (item.id === action.payload.id) {
           return Object.assign({}, item, action.payload.changedFields);
         } else if (item.subTasks) {
-          const taskCopy = Object.assign({}, item);
+          let taskCopy;
+          let isSubItemChanged = false;
+
           item.subTasks.forEach((subItem, index) => {
-            const taskCopy = Object.assign({}, item);
             if (subItem.id === action.payload.id) {
+              taskCopy = Object.assign({}, item);
               taskCopy.subTasks[index] = Object.assign({}, subItem, action.payload.changedFields);
+              isSubItemChanged = true;
             }
           });
           return taskCopy || item;
@@ -64,9 +67,21 @@ export function TaskReducer(state = INITIAL_TASK_STATE, action: any) {
         if (item.id === action.payload) {
           return Object.assign({}, item, {isCurrent: true});
         } else if (item.subTasks) {
-          item.subTasks.forEach((subItem) => {
-            // subItem
+          let taskCopy;
+          let isSubItemChanged = false;
+          item.subTasks.forEach((subItem, index) => {
+            // console.log( action.payload,subItem);
+            if (subItem.id === action.payload) {
+              taskCopy = Object.assign({}, item);
+              taskCopy.subTasks[index] = Object.assign({}, subItem, {isCurrent: true});
+              isSubItemChanged = true;
+            } else if (subItem.isCurrent) {
+              isSubItemChanged = true;
+              delete subItem.isCurrent;
+            }
           });
+
+          return taskCopy || item;
         } else {
           const taskCopy = Object.assign({}, item);
           if (taskCopy.hasOwnProperty('isCurrent')) {
@@ -111,7 +126,7 @@ export function TaskReducer(state = INITIAL_TASK_STATE, action: any) {
 
     case REORDER_TASKS:
       return state;
-      // return action.payload;
+    // return action.payload;
 
     // case GET_CURRENT_TASK:
 
