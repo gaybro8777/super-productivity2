@@ -212,7 +212,8 @@
 <!--current-task-id="$ctrl.currentTaskId"-->
 <!--task="task"></sub-task-list>-->
 <div class="sub-tasks"
-     *ngIf="task.subTasks">
+     *ngIf="task.subTasks"
+     [dragula]="task.id">
   <app-task *ngFor="let task of task.subTasks; let i = index;"
             [task]="task"
             [class.is-done]="task.isDone">

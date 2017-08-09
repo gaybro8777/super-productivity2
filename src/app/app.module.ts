@@ -8,7 +8,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MdToolbarModule,MdButtonModule,MdCheckboxModule} from '@angular/material';
-import {DndModule} from 'ng2-dnd';
+import {DragulaModule} from 'ng2-dragula';
 
 import {AppComponent} from './app.component';
 
@@ -19,7 +19,6 @@ import { WorkViewComponent } from './work-view/work-view.component';
 import { TaskListComponent } from './tasks/task-list.component';
 import { EditOnClickComponent } from './edit-on-click/edit-on-click.component';
 import { TaskComponent } from './tasks/task.component';
-
 
 
 export const appRoutes: Routes = [
@@ -67,7 +66,7 @@ export const appRoutes: Routes = [
     EffectsModule.forRoot([TaskEffects]),
 
     // other
-    DndModule.forRoot(),
+    DragulaModule,
   ],
   providers: [TaskService],
   bootstrap: [AppComponent]
