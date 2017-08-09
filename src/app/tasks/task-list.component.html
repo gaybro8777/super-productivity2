@@ -15,6 +15,7 @@
     <app-task *ngFor="let task of tasks$ | async; let i = index;"
               [task]="task"
               dnd-sortable
+              (onDropSuccess)="onDropSuccess($event)"
               [sortableIndex]="i"
               [class.is-done]="task.isDone">
     </app-task>

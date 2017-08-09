@@ -5,8 +5,17 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {Task} from './task'
 import {Store} from '@ngrx/store';
-import {ADD_TASK, DELETE_TASK, RELOAD_FROM_LS, TOGGLE_DONE, UPDATE_TASK, ADD_SUB_TASK} from './task.actions';
-import {SET_CURRENT_TASK, UNSET_CURRENT_TASK} from './task.actions';
+import {
+  ADD_SUB_TASK,
+  ADD_TASK,
+  DELETE_TASK,
+  RELOAD_FROM_LS,
+  REORDER_TASKS,
+  SET_CURRENT_TASK,
+  TOGGLE_DONE,
+  UNSET_CURRENT_TASK,
+  UPDATE_TASK
+} from './task.actions';
 
 
 @Injectable()
@@ -52,14 +61,14 @@ export class TaskService {
     });
   }
 
-  setCurrentTask(taskId){
+  setCurrentTask(taskId) {
     this.store.dispatch({
       type: SET_CURRENT_TASK,
-      payload:  taskId,
+      payload: taskId,
     });
   }
 
-  pauseCurrentTask(){
+  pauseCurrentTask() {
     this.store.dispatch({
       type: UNSET_CURRENT_TASK,
     });
@@ -72,10 +81,17 @@ export class TaskService {
     });
   }
 
-  addSubTask(parentTask){
+  addSubTask(parentTask) {
     this.store.dispatch({
       type: ADD_SUB_TASK,
       payload: parentTask
+    });
+  }
+
+  reorderList(newOrderTasks) {
+    this.store.dispatch({
+      type: REORDER_TASKS,
+      payload: newOrderTasks
     });
   }
 

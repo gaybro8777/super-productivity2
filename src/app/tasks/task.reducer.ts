@@ -7,7 +7,8 @@ import {
   SET_CURRENT_TASK,
   TOGGLE_DONE,
   UNSET_CURRENT_TASK,
-  UPDATE_TASK
+  UPDATE_TASK,
+  REORDER_TASKS
 } from './task.actions';
 import {LS_TASKS} from '../app.constants'
 import shortid from 'shortid'
@@ -107,6 +108,10 @@ export function TaskReducer(state = INITIAL_TASK_STATE, action: any) {
           return item;
         }
       });
+
+    case REORDER_TASKS:
+      return state;
+      // return action.payload;
 
     // case GET_CURRENT_TASK:
 
