@@ -31,7 +31,22 @@ export function TaskReducer(state = INITIAL_TASK_STATE, action: any) {
       return [newTask, ...state];
 
     case DELETE_TASK:
-      return state.filter((item) => item.id !== action.payload);
+      return state
+        .filter((item) => item.id !== action.payload)
+        .map((item) => {
+          if (item.subTasks) {
+            let taskCopy;
+            item.subTasks.forEach((subItem, index) => {
+              if (subItem.id === action.payload) {
+                taskCopy = Object.assign({}, item);
+                taskCopy.subTasks.splice(index, 1);
+              }
+            });
+            return taskCopy || item;
+          } else {
+            return item;
+          }
+        });
 
     case UPDATE_TASK:
       return state.map((item) => {
@@ -39,13 +54,11 @@ export function TaskReducer(state = INITIAL_TASK_STATE, action: any) {
           return Object.assign({}, item, action.payload.changedFields);
         } else if (item.subTasks) {
           let taskCopy;
-          let isSubItemChanged = false;
 
           item.subTasks.forEach((subItem, index) => {
             if (subItem.id === action.payload.id) {
               taskCopy = Object.assign({}, item);
               taskCopy.subTasks[index] = Object.assign({}, subItem, action.payload.changedFields);
-              isSubItemChanged = true;
             }
           });
           return taskCopy || item;
@@ -68,15 +81,12 @@ export function TaskReducer(state = INITIAL_TASK_STATE, action: any) {
           return Object.assign({}, item, {isCurrent: true});
         } else if (item.subTasks) {
           let taskCopy;
-          let isSubItemChanged = false;
           item.subTasks.forEach((subItem, index) => {
             // console.log( action.payload,subItem);
             if (subItem.id === action.payload) {
               taskCopy = Object.assign({}, item);
               taskCopy.subTasks[index] = Object.assign({}, subItem, {isCurrent: true});
-              isSubItemChanged = true;
             } else if (subItem.isCurrent) {
-              isSubItemChanged = true;
               delete subItem.isCurrent;
             }
           });
