@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {TaskService} from './task.service';
 import {Task} from './task'
+import {DragulaService} from 'ng2-dragula';
 
 @Component({
   selector: 'app-task-list',
@@ -14,7 +15,10 @@ export class TaskListComponent implements OnInit {
   @Input() tasks$: Observable<[Task]>;
   taskTitle: string;
 
-  constructor(private taskService: TaskService) {
+  constructor(private taskService: TaskService, private dragulaService: DragulaService) {
+    dragulaService.dropModel.subscribe(() => {
+      taskService.sync();
+    });
   }
 
   ngOnInit() {
@@ -26,9 +30,6 @@ export class TaskListComponent implements OnInit {
     this.taskTitle = '';
   }
 
-  focusLastFocusedTaskEl(){}
-  onDropSuccess($event){
-    // console.log($event, this.tasks$);
-    this.taskService.reorderList(this.tasks$);
+  focusLastFocusedTaskEl() {
   }
 }

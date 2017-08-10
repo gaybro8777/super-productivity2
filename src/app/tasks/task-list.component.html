@@ -10,7 +10,8 @@
 
 
   <div class="task-list"
-       [dragula]='"bag-one"'>
+       [dragula]='"bag-one"'
+       [dragulaModel]="tasks$| async">
     <app-task *ngFor="let task of tasks$ | async; let i = index;"
               [task]="task"
               [class.is-done]="task.isDone">

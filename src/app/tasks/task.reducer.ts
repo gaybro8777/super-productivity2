@@ -4,11 +4,11 @@ import {
   ADD_TASK,
   DELETE_TASK,
   RELOAD_FROM_LS,
-  REORDER_TASKS,
   SET_CURRENT_TASK,
   TOGGLE_DONE,
   UNSET_CURRENT_TASK,
-  UPDATE_TASK
+  UPDATE_TASK,
+  SYNC
 } from './task.actions';
 import {Task} from './task';
 import {LS_TASKS} from '../app.constants'
@@ -143,8 +143,9 @@ export function TaskReducer(state = INITIAL_TASK_STATE, action: any) {
         }
       });
 
-    case REORDER_TASKS:
+    case SYNC:
       return state;
+
     // return action.payload;
 
     // case GET_CURRENT_TASK:

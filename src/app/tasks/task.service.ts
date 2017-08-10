@@ -10,11 +10,11 @@ import {
   ADD_TASK,
   DELETE_TASK,
   RELOAD_FROM_LS,
-  REORDER_TASKS,
   SET_CURRENT_TASK,
   TOGGLE_DONE,
   UNSET_CURRENT_TASK,
-  UPDATE_TASK
+  UPDATE_TASK,
+  SYNC
 } from './task.actions';
 
 
@@ -30,6 +30,12 @@ export class TaskService {
   reloadFromLs() {
     this.store.dispatch({
       type: RELOAD_FROM_LS
+    });
+  }
+
+  sync(){
+    this.store.dispatch({
+      type: SYNC
     });
   }
 
@@ -87,12 +93,4 @@ export class TaskService {
       payload: parentTask
     });
   }
-
-  reorderList(newOrderTasks) {
-    this.store.dispatch({
-      type: REORDER_TASKS,
-      payload: newOrderTasks
-    });
-  }
-
 }
