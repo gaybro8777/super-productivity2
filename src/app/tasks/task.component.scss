@@ -2,7 +2,7 @@
 
 :host {
   $this-inner-padding-left-right: 12px;
-  padding: 3px $this-inner-padding-left-right;
+  padding: 3px $this-inner-padding-left-right 0 3px;
   display: block;
   margin-bottom: 6px;
   background-color: #ffffff;
@@ -193,6 +193,11 @@
     flex-basis: auto;
     flex-grow: 0;
     flex-shrink: 0;
+    cursor: grab;
+    //width: 40px;
+    padding-left: $this-inner-padding-left-right;
+    height: 40px;
+    line-height: 40px;
   }
 
   .title {
@@ -281,6 +286,11 @@
       margin-bottom: 8px;
       margin-top: 8px;
     }
+  }
+
+  .sub-tasks {
+    margin-left: $this-inner-padding-left-right;
+    padding-bottom: 3px;
   }
 
 }

@@ -19,6 +19,11 @@ export class TaskListComponent implements OnInit {
     dragulaService.dropModel.subscribe(() => {
       taskService.sync();
     });
+    dragulaService.setOptions('lvl1-task-list', {
+      moves: function (el, container, handle) {
+        return handle.className.indexOf('handle') > -1;
+      }
+    });
   }
 
   ngOnInit() {
