@@ -80,10 +80,10 @@ export class TaskService {
     });
   }
 
-  toggleDone(task) {
+  toggleDone(taskId) {
     this.store.dispatch({
       type: TOGGLE_DONE,
-      payload: task
+      payload: taskId
     });
   }
 

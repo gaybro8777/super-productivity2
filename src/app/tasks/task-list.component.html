@@ -13,8 +13,7 @@
        [dragula]='"lvl1-task-list"'
        [dragulaModel]="tasks$| async">
     <app-task *ngFor="let task of tasks$ | async; let i = index;"
-              [task]="task"
-              [class.is-done]="task.isDone">
+              [task]="task">
     </app-task>
   </div>
 </section>

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Input} from '@angular/core';
+import {HostBinding} from '@angular/core';
+import {DoCheck} from '@angular/core';
 import {TaskService} from './task.service';
-import {EventEmitter} from '@angular/core';
-import {Output} from '@angular/core';
 
 // import {Task} from './task'
 
@@ -14,13 +14,19 @@ import {Output} from '@angular/core';
     'class': 'mat-elevation-z4'
   }
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent implements OnInit, DoCheck {
   // @Input() task: Task;
   @Input() task: any;
+  @HostBinding('class.is-done') isDone: boolean = false;
+
   // @Output() taskUpdated: EventEmitter<any> = new EventEmitter();
 
 
   constructor(private taskService: TaskService) {
+  }
+
+  ngDoCheck() {
+    this.isDone = this.task.isDone;
   }
 
   ngOnInit() {
@@ -31,11 +37,11 @@ export class TaskComponent implements OnInit {
   }
 
 
-  startTask(taskId){
+  startTask(taskId) {
     this.taskService.setCurrentTask(taskId);
   }
 
-  pauseTask(){
+  pauseTask() {
     this.taskService.pauseCurrentTask();
   }
 
@@ -44,22 +50,22 @@ export class TaskComponent implements OnInit {
     // todo focus task again
   }
 
-  toggleDone(task) {
-    this.taskService.toggleDone(task);
+  estimateTime() {
   }
 
-  estimateTime(){}
-
-  addSubTask(task){
+  addSubTask(task) {
     this.taskService.addSubTask(task);
   }
 
-  onTaskDoneChanged(){
-
+  // TODO refactor to action ?
+  onTaskDoneChanged(task) {
+    this.taskService.sync();
   }
 
-  focusTask(){}
+  focusTask() {
+  }
 
 
-  onTaskNotesChanged(){}
+  onTaskNotesChanged() {
+  }
 }

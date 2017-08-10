@@ -70,14 +70,25 @@ export function TaskReducer(state = INITIAL_TASK_STATE, action: any) {
         } else {
           return item;
         }
-
       });
 
     case TOGGLE_DONE:
       return state.map((item) => {
-        return item.id === action.payload.id
-          ? Object.assign({}, item, {done: !action.payload.isDone})
-          : item;
+        if (item.id === action.payload.id) {
+          return Object.assign({}, item, action.payload.isDone);
+        } else if (item.subTasks) {
+          let taskCopy: Task;
+
+          item.subTasks.forEach((subItem, index) => {
+            if (subItem.id === action.payload.id) {
+              taskCopy = Object.assign({}, item);
+              taskCopy.subTasks[index] = Object.assign({}, subItem, action.payload.isDone);
+            }
+          });
+          return taskCopy || item;
+        } else {
+          return item;
+        }
       });
 
     case SET_CURRENT_TASK:

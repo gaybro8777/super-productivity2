@@ -3,13 +3,6 @@
 <!--as-sortable-item-handle-->
 <!--layout-align="space-between center"> -->
 <div class="first-line">
-
-  <!--<span class="title">{{ task.title }}</span>-->
-  <!--<span>{{task|json}}</span>-->
-  <!--<button (click)="editTask(task, task.id)">Edit</button>-->
-  <!--<button (click)="toggleDone(task, task.id)">Toggle Done</button>-->
-  <!--<button (click)="deleteTask(task.id)">X</button>-->
-
   <button md-icon-button
           aria-label="is updated"
           tabindex="2"
@@ -215,7 +208,6 @@
      *ngIf="task.subTasks"
      [dragula]="task.id">
   <app-task *ngFor="let task of task.subTasks; let i = index;"
-            [task]="task"
-            [class.is-done]="task.isDone">
+            [task]="task">
   </app-task>
 </div>
