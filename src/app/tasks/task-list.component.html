@@ -10,9 +10,9 @@
 
 
   <div class="task-list"
-       [dragula]='"lvl1-task-list"'
+       [dragula]='taskListId'
        [dragulaModel]="tasks$| async">
-    <app-task *ngFor="let task of tasks$ | async; let i = index;"
+    <app-task *ngFor="let task of tasks$ | async | filterBy:filterArgs; let i = index;"
               [task]="task">
     </app-task>
   </div>

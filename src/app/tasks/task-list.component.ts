@@ -3,6 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import {TaskService} from './task.service';
 import {Task} from './task'
 import {DragulaService} from 'ng2-dragula';
+import shortid from 'shortid'
 
 @Component({
   selector: 'app-task-list',
@@ -13,13 +14,18 @@ import {DragulaService} from 'ng2-dragula';
 })
 export class TaskListComponent implements OnInit {
   @Input() tasks$: Observable<[Task]>;
+  @Input() filterArgs: string;
+
   taskTitle: string;
+  taskListId: string;
 
   constructor(private taskService: TaskService, private dragulaService: DragulaService) {
+    this.taskListId = shortid();
+
     dragulaService.dropModel.subscribe(() => {
       taskService.sync();
     });
-    dragulaService.setOptions('lvl1-task-list', {
+    dragulaService.setOptions(this.taskListId, {
       moves: function (el, container, handle) {
         return handle.className.indexOf('handle') > -1;
       }
