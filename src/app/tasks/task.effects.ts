@@ -9,17 +9,19 @@ import {Store} from '@ngrx/store';
 // import 'rxjs/add/operator/toArray';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/withLatestFrom';
-import {ADD_TASK, DELETE_TASK, TOGGLE_DONE, UPDATE_TASK, ADD_SUB_TASK, SYNC} from "./task.actions";
+import {ADD_TASK, DELETE_TASK, TOGGLE_DONE, UPDATE_TASK, ADD_SUB_TASK, SYNC, SET_CURRENT_TASK, UNSET_CURRENT_TASK} from "./task.actions";
 
-import {LS_TASKS} from '../app.constants'
+import {LS_TASKS, LS_CURRENT_TASK} from '../app.constants'
 
 
 // helper fn
 function syncToLs(state) {
   const stateReducer = state[1];
   const tasks = stateReducer.TaskReducer;
-  console.log('SYNC', tasks);
+  const currentTask = stateReducer.CurrentTaskReducer;
   localStorage.setItem(LS_TASKS, JSON.stringify(tasks));
+  localStorage.setItem(LS_CURRENT_TASK, currentTask);
+  console.log('SYNC', tasks, currentTask);
 }
 
 @Injectable()
@@ -55,6 +57,16 @@ export class TaskEffects {
 
   @Effect({dispatch: false}) sync$: any = this.actions$
     .ofType(SYNC)
+    .withLatestFrom(this.store$)
+    .do(syncToLs);
+
+  @Effect({dispatch: false}) setCurrentTask$: any = this.actions$
+    .ofType(SET_CURRENT_TASK)
+    .withLatestFrom(this.store$)
+    .do(syncToLs);
+
+  @Effect({dispatch: false}) unsetCurrentTask$: any = this.actions$
+    .ofType(UNSET_CURRENT_TASK)
     .withLatestFrom(this.store$)
     .do(syncToLs);
 }

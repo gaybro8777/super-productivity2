@@ -13,6 +13,7 @@ import {DragulaModule} from 'ng2-dragula';
 import {AppComponent} from './app.component';
 
 import {TaskReducer} from './tasks/task.reducer';
+import {CurrentTaskReducer} from './tasks/current-task.reducer';
 import {TaskEffects} from './tasks/task.effects';
 import {TaskService} from './tasks/task.service';
 import {WorkViewComponent} from './work-view/work-view.component';
@@ -60,7 +61,7 @@ export const appRoutes: Routes = [
     MdCheckboxModule,
 
     // store stuff
-    StoreModule.forRoot({TaskReducer}),
+    StoreModule.forRoot({TaskReducer, CurrentTaskReducer}),
     StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
     }),

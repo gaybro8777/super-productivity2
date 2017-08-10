@@ -3,6 +3,7 @@ import {Input} from '@angular/core';
 import {HostBinding} from '@angular/core';
 import {DoCheck} from '@angular/core';
 import {TaskService} from './task.service';
+import {Observable} from 'rxjs/Observable';
 
 // import {Task} from './task'
 
@@ -18,11 +19,14 @@ export class TaskComponent implements OnInit, DoCheck {
   // @Input() task: Task;
   @Input() task: any;
   @HostBinding('class.is-done') isDone: boolean = false;
+  @HostBinding('class.is-current') isCurrent: boolean = false;
+  currentTask$: Observable<string>;
 
   // @Output() taskUpdated: EventEmitter<any> = new EventEmitter();
 
 
   constructor(private taskService: TaskService) {
+    this.currentTask$ = this.taskService.currentTask$;
   }
 
   ngDoCheck() {
@@ -30,6 +34,9 @@ export class TaskComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
+    this.currentTask$.subscribe((val) => {
+      this.isCurrent = (this.task && val === this.task.id);
+    });
   }
 
   deleteTask(taskId) {

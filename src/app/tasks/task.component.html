@@ -23,7 +23,7 @@
           (click)="startTask(task.id)"
           aria-label="mark as current"
           tabindex="2"
-          *ngIf="!task.isDone && !task.isCurrent && !task.subTasks">
+          *ngIf="!task.isDone && !isCurrent && !task.subTasks">
     <i class="material-icons">play_circle_filled</i>
   </button>
 
@@ -31,7 +31,7 @@
           class="play-btn"
           (click)="pauseTask(task.id)"
           tabindex="2"
-          *ngIf="!task.isDone && task.isCurrent && !task.subTasks">
+          *ngIf="!task.isDone && isCurrent && !task.subTasks">
     <i class="material-icons">pause_circle_filled</i>
   </button>
 

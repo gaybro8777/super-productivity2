@@ -11,19 +11,21 @@ import {
   DELETE_TASK,
   RELOAD_FROM_LS,
   SET_CURRENT_TASK,
+  SYNC,
   TOGGLE_DONE,
   UNSET_CURRENT_TASK,
-  UPDATE_TASK,
-  SYNC
+  UPDATE_TASK
 } from './task.actions';
 
 
 @Injectable()
 export class TaskService {
   tasks$: Observable<Array<Task>>;
+  currentTask$: Observable<String>;
 
   constructor(private store: Store<any>) {
     this.tasks$ = this.store.select('TaskReducer');
+    this.currentTask$ = this.store.select('CurrentTaskReducer');
     this.reloadFromLs();
   }
 
@@ -33,7 +35,7 @@ export class TaskService {
     });
   }
 
-  sync(){
+  sync() {
     this.store.dispatch({
       type: SYNC
     });
