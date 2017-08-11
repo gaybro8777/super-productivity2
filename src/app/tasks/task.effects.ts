@@ -9,9 +9,19 @@ import {Store} from '@ngrx/store';
 // import 'rxjs/add/operator/toArray';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/withLatestFrom';
-import {ADD_TASK, DELETE_TASK, TOGGLE_DONE, UPDATE_TASK, ADD_SUB_TASK, SYNC, SET_CURRENT_TASK, UNSET_CURRENT_TASK} from "./task.actions";
+import {
+  ADD_SUB_TASK,
+  ADD_TASK,
+  DELETE_TASK,
+  SET_CURRENT_TASK,
+  SET_TASK_DONE,
+  SET_TASK_UNDONE,
+  SYNC,
+  UNSET_CURRENT_TASK,
+  UPDATE_TASK
+} from "./task.actions";
 
-import {LS_TASKS, LS_CURRENT_TASK} from '../app.constants'
+import {LS_CURRENT_TASK, LS_TASKS} from '../app.constants'
 
 
 // helper fn
@@ -45,8 +55,13 @@ export class TaskEffects {
     .withLatestFrom(this.store$)
     .do(syncToLs);
 
-  @Effect({dispatch: false}) toggleDone$: any = this.actions$
-    .ofType(TOGGLE_DONE)
+  @Effect({dispatch: false}) setTaskDone$: any = this.actions$
+    .ofType(SET_TASK_DONE)
+    .withLatestFrom(this.store$)
+    .do(syncToLs);
+
+  @Effect({dispatch: false}) setTaskUnDone$: any = this.actions$
+    .ofType(SET_TASK_UNDONE)
     .withLatestFrom(this.store$)
     .do(syncToLs);
 

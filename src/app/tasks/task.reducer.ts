@@ -4,8 +4,9 @@ import {
   ADD_TASK,
   DELETE_TASK,
   RELOAD_FROM_LS,
+  SET_TASK_DONE,
+  SET_TASK_UNDONE,
   SYNC,
-  TOGGLE_DONE,
   UPDATE_TASK
 } from './task.actions';
 import {Task} from './task';
@@ -70,17 +71,36 @@ export function TaskReducer(state = INITIAL_TASK_STATE, action: any) {
         }
       });
 
-    case TOGGLE_DONE:
+    case SET_TASK_DONE:
       return state.map((item) => {
-        if (item.id === action.payload.id) {
-          return Object.assign({}, item, action.payload.isDone);
+        if (item.id === action.payload) {
+          return Object.assign({}, item, {isDone: true});
         } else if (item.subTasks) {
           let taskCopy: Task;
 
           item.subTasks.forEach((subItem, index) => {
-            if (subItem.id === action.payload.id) {
+            if (subItem.id === action.payload) {
               taskCopy = Object.assign({}, item);
-              taskCopy.subTasks[index] = Object.assign({}, subItem, action.payload.isDone);
+              taskCopy.subTasks[index] = Object.assign({}, subItem, {isDone: true});
+            }
+          });
+          return taskCopy || item;
+        } else {
+          return item;
+        }
+      });
+
+    case SET_TASK_UNDONE:
+      return state.map((item) => {
+        if (item.id === action.payload) {
+          return Object.assign({}, item, {isDone: false});
+        } else if (item.subTasks) {
+          let taskCopy: Task;
+
+          item.subTasks.forEach((subItem, index) => {
+            if (subItem.id === action.payload) {
+              taskCopy = Object.assign({}, item);
+              taskCopy.subTasks[index] = Object.assign({}, subItem, {isDone: false});
             }
           });
           return taskCopy || item;

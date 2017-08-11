@@ -12,9 +12,10 @@ import {
   RELOAD_FROM_LS,
   SET_CURRENT_TASK,
   SYNC,
-  TOGGLE_DONE,
   UNSET_CURRENT_TASK,
-  UPDATE_TASK
+  UPDATE_TASK,
+  SET_TASK_DONE,
+  SET_TASK_UNDONE,
 } from './task.actions';
 
 
@@ -41,7 +42,7 @@ export class TaskService {
     });
   }
 
-  addTask(title) {
+  addTask(title: string) {
     this.store.dispatch({
       type: ADD_TASK,
       payload: {
@@ -51,7 +52,7 @@ export class TaskService {
     });
   }
 
-  deleteTask(taskId) {
+  deleteTask(taskId: string) {
     this.store.dispatch({
       type: DELETE_TASK,
       payload: taskId
@@ -59,7 +60,7 @@ export class TaskService {
   }
 
 
-  updateTask(taskId, changedFields) {
+  updateTask(taskId: string, changedFields: any) {
     this.store.dispatch({
       type: UPDATE_TASK,
       payload: {
@@ -69,7 +70,7 @@ export class TaskService {
     });
   }
 
-  setCurrentTask(taskId) {
+  setCurrentTask(taskId: string) {
     this.store.dispatch({
       type: SET_CURRENT_TASK,
       payload: taskId,
@@ -82,14 +83,22 @@ export class TaskService {
     });
   }
 
-  toggleDone(taskId) {
+  setTaskDone(taskId: string) {
     this.store.dispatch({
-      type: TOGGLE_DONE,
-      payload: taskId
+      type: SET_TASK_DONE,
+      payload: taskId,
     });
   }
 
-  addSubTask(parentTask) {
+  setTaskUnDone(taskId: string) {
+    this.store.dispatch({
+      type: SET_TASK_UNDONE,
+      payload: taskId,
+    });
+  }
+
+
+  addSubTask(parentTask: Task) {
     this.store.dispatch({
       type: ADD_SUB_TASK,
       payload: parentTask

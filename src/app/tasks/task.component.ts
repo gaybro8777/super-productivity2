@@ -65,8 +65,12 @@ export class TaskComponent implements OnInit, DoCheck {
   }
 
   // TODO refactor to action ?
-  onTaskDoneChanged(task) {
-    this.taskService.sync();
+  onTaskDoneChanged(taskId, isDone) {
+    if (isDone) {
+      this.taskService.setTaskDone(taskId);
+    } else {
+      this.taskService.setTaskUnDone(taskId);
+    }
   }
 
   focusTask() {
