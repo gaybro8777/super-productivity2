@@ -20,53 +20,11 @@ import {
 export class TaskService {
   tasks$: Observable<Array<Task>>;
   currentTask$: Observable<String>;
-  model$: Observable<{ tasks: Task[]; currentTaskId: String; currentTask: Task, lastCurrentTask: Task }>;
 
   constructor(private _store: Store<any>) {
     this.tasks$ = this._store.select('TaskReducer');
     this.currentTask$ = this._store.select('CurrentTaskReducer');
     this.reloadFromLs();
-
-    // handle selecting the next task
-    let lastCurrentTaskId;
-    this.model$ = Observable.combineLatest(
-      this.tasks$,
-      this.currentTask$,
-      (tasks, currentTaskId) => {
-        let currentTask: Task;
-        let lastCurrentTask: Task;
-
-        tasks.forEach((task) => {
-          task.progress = 50;
-          if (currentTaskId === task.id) {
-            currentTask = Object.assign({}, task);
-          }
-          else if (lastCurrentTaskId === task.id) {
-            lastCurrentTask = Object.assign({}, task);
-          }
-          else if (task.subTasks) {
-            task.subTasks.forEach((subTask) => {
-              if (currentTaskId === subTask.id) {
-                currentTask = Object.assign({}, subTask);
-              }
-              else if (lastCurrentTaskId === subTask.id) {
-                lastCurrentTask = Object.assign({}, subTask);
-              }
-            });
-          }
-        });
-
-        lastCurrentTaskId = currentTaskId;
-
-        return {
-          tasks,
-          currentTaskId,
-          currentTask,
-          lastCurrentTask,
-          lastCurrentTaskId
-        }
-      }
-    );
   }
 
   reloadFromLs() {

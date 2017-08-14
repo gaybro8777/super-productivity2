@@ -7,7 +7,7 @@ import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MdButtonModule, MdCheckboxModule, MdToolbarModule, MdProgressBarModule} from '@angular/material';
+import {MdButtonModule, MdCheckboxModule, MdProgressBarModule, MdToolbarModule} from '@angular/material';
 import {DragulaModule} from 'ng2-dragula';
 
 import {AppComponent} from './app.component';
