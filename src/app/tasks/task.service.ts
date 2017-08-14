@@ -37,6 +37,7 @@ export class TaskService {
         let lastCurrentTask: Task;
 
         tasks.forEach((task) => {
+          task.progress = 50;
           if (currentTaskId === task.id) {
             currentTask = Object.assign({}, task);
           }

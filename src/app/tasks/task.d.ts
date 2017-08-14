@@ -5,4 +5,5 @@ export class Task {
   notes?: string;
   parentId?: string;
   subTasks?: [Task];
+  progress?: number;
 }

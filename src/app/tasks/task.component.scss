@@ -175,15 +175,21 @@
   //  }
   //}
 
-  md-progress-linear {
-    margin-left: -12px;
+  md-progress-bar {
+    margin-left: -2px;
     margin-right: -12px;
     width: auto;
+    //.mat-progress-bar-element {
+    //  background: yellow !important;
+    //}
+    //.mat-progress-bar-fill:after {
+    //  background: red !important;
+    //}
   }
 
-  md-progress-linear.md-default-theme .md-container,
-  md-progress-linear .md-container {
-    background: none;
+  md-progress-bar.md-default-theme .md-container,
+  md-progress-bar .md-container {
+    background: none !important;
   }
 
   .handle {
@@ -289,8 +295,7 @@
   }
 
   .sub-tasks {
-    margin-left: $this-inner-padding-left-right;
+    padding-left: $this-inner-padding-left-right;
     padding-bottom: 3px;
   }
-
 }
