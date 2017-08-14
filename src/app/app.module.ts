@@ -21,7 +21,7 @@ import {TaskListComponent} from './tasks/task-list.component';
 import {EditOnClickComponent} from './edit-on-click/edit-on-click.component';
 import {TaskComponent} from './tasks/task.component';
 import {FilterPipeModule} from 'ngx-filter-pipe';
-
+import {metaReducers} from './meta.reducer'
 
 export const appRoutes: Routes = [
   {path: 'work-view', component: WorkViewComponent},
@@ -63,9 +63,11 @@ export const appRoutes: Routes = [
 
     // store stuff
     StoreModule.forRoot({
-      TaskReducer,
-      CurrentTaskReducer
-    }),
+        TaskReducer,
+        CurrentTaskReducer
+      },
+      {metaReducers}
+    ),
     StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
     }),
