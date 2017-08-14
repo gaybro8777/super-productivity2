@@ -61,7 +61,10 @@ export const appRoutes: Routes = [
     MdCheckboxModule,
 
     // store stuff
-    StoreModule.forRoot({TaskReducer, CurrentTaskReducer}),
+    StoreModule.forRoot({
+      TaskReducer,
+      CurrentTaskReducer
+    }),
     StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
     }),

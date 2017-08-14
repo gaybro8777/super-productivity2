@@ -1,8 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/from';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import {Observable} from 'rxjs/Rx'
 import {Task} from './task'
 import {Store} from '@ngrx/store';
 import {
@@ -11,11 +8,11 @@ import {
   DELETE_TASK,
   RELOAD_FROM_LS,
   SET_CURRENT_TASK,
+  SET_TASK_DONE,
+  SET_TASK_UNDONE,
   SYNC,
   UNSET_CURRENT_TASK,
   UPDATE_TASK,
-  SET_TASK_DONE,
-  SET_TASK_UNDONE,
 } from './task.actions';
 
 
@@ -23,27 +20,68 @@ import {
 export class TaskService {
   tasks$: Observable<Array<Task>>;
   currentTask$: Observable<String>;
+  model$: Observable<{ tasks: Task[]; currentTaskId: String; currentTask: Task, lastCurrentTask: Task }>;
 
-  constructor(private store: Store<any>) {
-    this.tasks$ = this.store.select('TaskReducer');
-    this.currentTask$ = this.store.select('CurrentTaskReducer');
+  constructor(private _store: Store<any>) {
+    this.tasks$ = this._store.select('TaskReducer');
+    this.currentTask$ = this._store.select('CurrentTaskReducer');
     this.reloadFromLs();
+
+    // handle selecting the next task
+    let lastCurrentTaskId;
+    this.model$ = Observable.combineLatest(
+      this.tasks$,
+      this.currentTask$,
+      (tasks, currentTaskId) => {
+        let currentTask: Task;
+        let lastCurrentTask: Task;
+
+        tasks.forEach((task) => {
+          if (currentTaskId === task.id) {
+            currentTask = Object.assign({}, task);
+          }
+          else if (lastCurrentTaskId === task.id) {
+            lastCurrentTask = Object.assign({}, task);
+          }
+          else if (task.subTasks) {
+            task.subTasks.forEach((subTask) => {
+              if (currentTaskId === subTask.id) {
+                currentTask = Object.assign({}, subTask);
+              }
+              else if (lastCurrentTaskId === subTask.id) {
+                lastCurrentTask = Object.assign({}, subTask);
+              }
+            });
+          }
+        });
+
+        lastCurrentTaskId = currentTaskId;
+
+        return {
+          tasks,
+          currentTaskId,
+          currentTask,
+          lastCurrentTask,
+          lastCurrentTaskId
+        }
+      }
+    );
   }
 
   reloadFromLs() {
-    this.store.dispatch({
+    this._store.dispatch({
       type: RELOAD_FROM_LS
     });
   }
 
   sync() {
-    this.store.dispatch({
+    this._store.dispatch({
       type: SYNC
     });
   }
 
   addTask(title: string) {
-    this.store.dispatch({
+    this._store.dispatch({
       type: ADD_TASK,
       payload: {
         title,
@@ -53,7 +91,7 @@ export class TaskService {
   }
 
   deleteTask(taskId: string) {
-    this.store.dispatch({
+    this._store.dispatch({
       type: DELETE_TASK,
       payload: taskId
     });
@@ -61,7 +99,7 @@ export class TaskService {
 
 
   updateTask(taskId: string, changedFields: any) {
-    this.store.dispatch({
+    this._store.dispatch({
       type: UPDATE_TASK,
       payload: {
         id: taskId,
@@ -71,27 +109,27 @@ export class TaskService {
   }
 
   setCurrentTask(taskId: string) {
-    this.store.dispatch({
+    this._store.dispatch({
       type: SET_CURRENT_TASK,
       payload: taskId,
     });
   }
 
   pauseCurrentTask() {
-    this.store.dispatch({
+    this._store.dispatch({
       type: UNSET_CURRENT_TASK,
     });
   }
 
   setTaskDone(taskId: string) {
-    this.store.dispatch({
+    this._store.dispatch({
       type: SET_TASK_DONE,
       payload: taskId,
     });
   }
 
   setTaskUnDone(taskId: string) {
-    this.store.dispatch({
+    this._store.dispatch({
       type: SET_TASK_UNDONE,
       payload: taskId,
     });
@@ -99,7 +137,7 @@ export class TaskService {
 
 
   addSubTask(parentTask: Task) {
-    this.store.dispatch({
+    this._store.dispatch({
       type: ADD_SUB_TASK,
       payload: parentTask
     });
