@@ -4,6 +4,8 @@ import {HostBinding} from '@angular/core';
 import {DoCheck} from '@angular/core';
 import {TaskService} from './task.service';
 import {Observable} from 'rxjs/Observable';
+import {DragulaService} from 'ng2-dragula';
+import shortid from 'shortid'
 
 // import {Task} from './task'
 
@@ -25,8 +27,13 @@ export class TaskComponent implements OnInit, DoCheck {
   // @Output() taskUpdated: EventEmitter<any> = new EventEmitter();
 
 
-  constructor(private taskService: TaskService) {
-    this.currentTask$ = this.taskService.currentTask$;
+  subTaskListId: string;
+
+
+  // @Output() taskUpdated: EventEmitter<any> = new EventEmitter();
+
+
+  constructor(private taskService: TaskService, private _dragulaService: DragulaService) {
   }
 
   ngDoCheck() {
@@ -34,8 +41,16 @@ export class TaskComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
+    this.currentTask$ = this.taskService.currentTask$;
     this.currentTask$.subscribe((val) => {
       this.isCurrent = (this.task && val === this.task.id);
+    });
+
+    this.subTaskListId = shortid();
+    this._dragulaService.setOptions(this.subTaskListId, {
+      moves: function (el, container, handle) {
+        return handle.className.indexOf('handle-sub') > -1;
+      }
     });
   }
 

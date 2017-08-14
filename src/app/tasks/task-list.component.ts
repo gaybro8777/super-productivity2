@@ -19,15 +19,15 @@ export class TaskListComponent implements OnInit {
   taskTitle: string;
   taskListId: string;
 
-  constructor(private taskService: TaskService, private dragulaService: DragulaService) {
+  constructor(private _taskService: TaskService, private _dragulaService: DragulaService) {
     this.taskListId = shortid();
 
-    dragulaService.dropModel.subscribe(() => {
-      taskService.sync();
+    _dragulaService.dropModel.subscribe(() => {
+      _taskService.sync();
     });
-    dragulaService.setOptions(this.taskListId, {
+    _dragulaService.setOptions(this.taskListId, {
       moves: function (el, container, handle) {
-        return handle.className.indexOf('handle') > -1;
+        return handle.className.indexOf('handle-par') > -1;
       }
     });
   }
@@ -37,7 +37,7 @@ export class TaskListComponent implements OnInit {
 
   // TODO remove from here to it's own component
   addTask(taskTitle) {
-    this.taskService.addTask(taskTitle);
+    this._taskService.addTask(taskTitle);
     this.taskTitle = '';
   }
 

@@ -15,7 +15,9 @@
   </button>
 
 
-  <i class="handle material-icons">drag_handle</i>
+  <i class="material-icons handle"
+     [class.handle-par]="!task.parentId"
+     [class.handle-sub]="task.parentId">drag_handle</i>
 
 
   <button md-icon-button
@@ -206,7 +208,7 @@
 <!--task="task"></sub-task-list>-->
 <div class="sub-tasks"
      *ngIf="task.subTasks"
-     [dragula]="task.id"
+     [dragula]="subTaskListId"
      [dragulaModel]="task.subTasks">
   <app-task *ngFor="let task of task.subTasks; let i = index;"
             [task]="task">
