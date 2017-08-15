@@ -17,7 +17,7 @@ import shortid from 'shortid'
   host: {
     'class': 'mat-elevation-z4'
   },
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskComponent implements OnInit, DoCheck {
   // @Input() task: Task;

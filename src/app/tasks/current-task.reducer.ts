@@ -17,14 +17,6 @@ export function CurrentTaskReducer(state = INITIAL_TASK_STATE, action: any) {
     case UNSET_CURRENT_TASK:
       return undefined;
 
-    case SET_TASK_DONE:
-      if (action.payload === state) {
-        // TODO find a smart way to select the next task
-        return undefined;
-      } else {
-        return state;
-      }
-
     // case ADD_SUB_TASK:
     //   if(action.payload === state){}
 
