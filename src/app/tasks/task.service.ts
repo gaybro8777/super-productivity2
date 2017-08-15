@@ -22,8 +22,8 @@ export class TaskService {
   currentTask$: Observable<String>;
 
   constructor(private _store: Store<any>) {
-    this.tasks$ = this._store.select('TaskReducer');
-    this.currentTask$ = this._store.select('CurrentTaskReducer');
+    this.tasks$ = this._store.select(state => state.TaskReducer);
+    this.currentTask$ = this._store.select(state => state.CurrentTaskReducer);
     this.reloadFromLs();
   }
 
