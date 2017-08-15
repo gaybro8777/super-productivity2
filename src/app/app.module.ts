@@ -9,7 +9,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MdButtonModule, MdCheckboxModule, MdProgressBarModule, MdToolbarModule} from '@angular/material';
 import {DragulaModule} from 'ng2-dragula';
-
+import { MarkdownToHtmlModule } from 'ng2-markdown-to-html';
 import {AppComponent} from './app.component';
 
 import {TaskReducer} from './tasks/task.reducer';
@@ -21,7 +21,8 @@ import {TaskListComponent} from './tasks/task-list.component';
 import {EditOnClickComponent} from './edit-on-click/edit-on-click.component';
 import {TaskComponent} from './tasks/task.component';
 import {FilterPipeModule} from 'ngx-filter-pipe';
-import {metaReducers} from './meta.reducer'
+import {metaReducers} from './meta.reducer';
+import {InlineMarkdownComponent} from './inline-markdown/inline-markdown.component'
 
 export const appRoutes: Routes = [
   {path: 'work-view', component: WorkViewComponent},
@@ -46,7 +47,8 @@ export const appRoutes: Routes = [
     WorkViewComponent,
     TaskListComponent,
     EditOnClickComponent,
-    TaskComponent
+    TaskComponent,
+    InlineMarkdownComponent
   ],
   imports: [
     // base
@@ -76,6 +78,7 @@ export const appRoutes: Routes = [
     // other
     FilterPipeModule,
     DragulaModule,
+    MarkdownToHtmlModule.forRoot(),
   ],
   providers: [TaskService],
   bootstrap: [AppComponent]
