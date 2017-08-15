@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Input} from '@angular/core';
 import {HostBinding} from '@angular/core';
 import {DoCheck} from '@angular/core';
+import {ChangeDetectionStrategy} from '@angular/core';
 import {TaskService} from './task.service';
 import {Observable} from 'rxjs/Observable';
 import {DragulaService} from 'ng2-dragula';
@@ -15,7 +16,8 @@ import shortid from 'shortid'
   styleUrls: ['./task.component.scss'],
   host: {
     'class': 'mat-elevation-z4'
-  }
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskComponent implements OnInit, DoCheck {
   // @Input() task: Task;

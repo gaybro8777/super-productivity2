@@ -4,12 +4,14 @@ import {TaskService} from './task.service';
 import {Task} from './task'
 import {DragulaService} from 'ng2-dragula';
 import shortid from 'shortid'
+import {ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss'],
   providers: [TaskService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 
 })
 export class TaskListComponent implements OnInit {
