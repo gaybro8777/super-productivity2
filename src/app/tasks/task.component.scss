@@ -60,13 +60,6 @@
     }
     //.mat-icon-button,
     md-checkbox {
-      padding: 4px 2px;
-      // always reserve space for buttons
-      min-width: 28px;
-      width: 32px;
-      height: 32px;
-      margin: 0;
-
       &:hover {
         transform: scale(1.4);
       }
