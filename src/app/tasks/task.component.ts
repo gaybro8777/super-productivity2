@@ -86,6 +86,7 @@ export class TaskComponent implements OnInit, DoCheck {
   }
 
 
-  onTaskNotesChanged() {
+  onTaskNotesChanged(idToEdit,$event) {
+    this.taskService.updateTask(idToEdit, {notes: $event.newVal});
   }
 }
