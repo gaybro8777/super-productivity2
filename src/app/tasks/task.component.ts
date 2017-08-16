@@ -5,7 +5,10 @@ import {DoCheck} from '@angular/core';
 import {TaskService} from './task.service';
 import {Observable} from 'rxjs/Observable';
 import {DragulaService} from 'ng2-dragula';
-import shortid from 'shortid'
+import {Task} from './task';
+import shortid from 'shortid';
+import {MdDialog} from '@angular/material';
+import {DialogTimeEstimateComponent} from '../dialogs/dialog-time-estimate/dialog-time-estimate.component';
 
 // import {Task} from './task'
 
@@ -27,7 +30,7 @@ export class TaskComponent implements OnInit, DoCheck {
   currentTask$: Observable<string>;
   subTaskListId: string;
 
-  constructor(private taskService: TaskService, private _dragulaService: DragulaService) {
+  constructor(private taskService: TaskService, private _dragulaService: DragulaService, public dialog: MdDialog) {
   }
 
   ngDoCheck() {
@@ -48,12 +51,12 @@ export class TaskComponent implements OnInit, DoCheck {
     });
   }
 
-  deleteTask(taskId) {
+  deleteTask(taskId: string) {
     this.taskService.deleteTask(taskId);
   }
 
 
-  startTask(taskId) {
+  startTask(taskId: string) {
     this.taskService.setCurrentTask(taskId);
   }
 
@@ -61,20 +64,26 @@ export class TaskComponent implements OnInit, DoCheck {
     this.taskService.pauseCurrentTask();
   }
 
-  updateTask(idToEdit, taskTitle) {
+  updateTask(idToEdit: string, taskTitle: string) {
     this.taskService.updateTask(idToEdit, {title: taskTitle});
     // todo focus task again
   }
 
-  estimateTime() {
+  estimateTime(task: Task) {
+    this.dialog
+      .open(DialogTimeEstimateComponent)
+      .afterClosed()
+      .subscribe(result => {
+        console.log(result);
+      });
   }
 
-  addSubTask(task) {
+  addSubTask(task: Task) {
     this.taskService.addSubTask(task);
   }
 
   // TODO refactor to action ?
-  onTaskDoneChanged(taskId, isDone) {
+  onTaskDoneChanged(taskId: string, isDone: boolean) {
     if (isDone) {
       this.taskService.setTaskDone(taskId);
     } else {
@@ -86,7 +95,7 @@ export class TaskComponent implements OnInit, DoCheck {
   }
 
 
-  onTaskNotesChanged(idToEdit,$event) {
+  onTaskNotesChanged(idToEdit: string, $event) {
     this.taskService.updateTask(idToEdit, {notes: $event.newVal});
   }
 }

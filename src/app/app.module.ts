@@ -7,9 +7,9 @@ import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MdButtonModule, MdCheckboxModule, MdProgressBarModule, MdToolbarModule} from '@angular/material';
+import {MdButtonModule, MdCheckboxModule, MdProgressBarModule, MdToolbarModule, MdDialogModule} from '@angular/material';
 import {DragulaModule} from 'ng2-dragula';
-import { MarkdownToHtmlModule } from 'ng2-markdown-to-html';
+import {MarkdownToHtmlModule} from 'ng2-markdown-to-html';
 import {AppComponent} from './app.component';
 
 import {TaskReducer} from './tasks/task.reducer';
@@ -22,7 +22,8 @@ import {EditOnClickComponent} from './edit-on-click/edit-on-click.component';
 import {TaskComponent} from './tasks/task.component';
 import {FilterPipeModule} from 'ngx-filter-pipe';
 import {metaReducers} from './meta.reducer';
-import {InlineMarkdownComponent} from './inline-markdown/inline-markdown.component'
+import {InlineMarkdownComponent} from './inline-markdown/inline-markdown.component';
+import {DialogTimeEstimateComponent} from './dialogs/dialog-time-estimate/dialog-time-estimate.component'
 
 export const appRoutes: Routes = [
   {path: 'work-view', component: WorkViewComponent},
@@ -48,7 +49,13 @@ export const appRoutes: Routes = [
     TaskListComponent,
     EditOnClickComponent,
     TaskComponent,
-    InlineMarkdownComponent
+    InlineMarkdownComponent,
+
+    // dialogs
+    DialogTimeEstimateComponent
+  ],
+  entryComponents:[
+    DialogTimeEstimateComponent,
   ],
   imports: [
     // base
@@ -62,6 +69,7 @@ export const appRoutes: Routes = [
     MdButtonModule,
     MdCheckboxModule,
     MdProgressBarModule,
+    MdDialogModule,
 
     // store stuff
     StoreModule.forRoot({
