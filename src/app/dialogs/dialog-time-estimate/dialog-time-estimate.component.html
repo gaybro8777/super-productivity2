@@ -1,143 +1,125 @@
-<p>
-  dialog-time-estimate works!
-</p>
+<h2 md-dialog-title>Make an estimate / adjust time spent</h2>
+<md-dialog-content>
+  <form (submit)="submit(timeEstimate, timeSpent)"
+        class="mat-body"
+        name="time-estimate-form">
+
+    <md-icon>timer</md-icon>
+
+    <md-input-container>
+      <input mdInput
+             placeholder="Estimated Duration"
+             input-duration
+             name="estimate"
+             [ngModel]="timeEstimate">
+    </md-input-container>
+    <h3 class="md-caption">Time Spent</h3>
+
+    <md-icon>timer</md-icon>
+
+    <md-input-container>
+      <input mdInput
+             placeholder="Time Spent Today"
+             type="text"
+             input-duration="optional"
+             name="timeSpendToday"
+             [ngModel]="timeSpentOnDayCopy[todayStr]">
+    </md-input-container>
 
 
-<!--<md-dialog aria-label="Time estimation and time spent dialog"-->
-           <!--class="dialog-time-estimate"-->
-           <!--md-theme="vm.theme">-->
-  <!--<md-toolbar>-->
-    <!--<div class="md-toolbar-tools">-->
-      <!--<h2>Make an estimate / adjust time spent</h2>-->
-      <!--<span flex></span>-->
-      <!--<md-button class="md-icon-button"-->
-                 <!--aria-label="Cancel"-->
-                 <!--ng-click="vm.cancel()">-->
-        <!--<ng-md-icon icon="close"></ng-md-icon>-->
-      <!--</md-button>-->
-    <!--</div>-->
-  <!--</md-toolbar>-->
+    <div layout="row"
+         ng-repeat="(strDate,timeSpent) in timeSpentOnDayCopy"
+         *ngIf="todayStr !== strDate">
+      <div flex>
+        <md-icon>timer</md-icon>
+        <md-input-container class="md-icon-float md-block">
+          <input mdInput
+                 placeholder="Time Spent on +strDate+"
+                 type="text"
+                 input-duration="optional"
+                 name="timeSpentToday"
+                 [ngModel]="timeSpentOnDayCopy[strDate]"
+                 aria-label="Time Spent">
+        </md-input-container>
+      </div>
+      <div flex="20">
+        <button md-icon-button
+                (click)="deleteValue(strDate)">
+          <md-icon>delete_forever</md-icon>
+        </button>
+      </div>
+    </div>
 
-  <!--<md-dialog-content>-->
-    <!--<div class="md-dialog-content">-->
-
-      <!--<form ng-submit="vm.submit(vm.timeEstimate, vm.timeSpent)">-->
-        <!--<md-input-container class="md-icon-float md-block">-->
-          <!--<ng-md-icon icon="timer"-->
-                      <!--aria-label="Estimated Durations"></ng-md-icon>-->
-          <!--<label>Estimated Duration</label>-->
-
-          <!--<input type="text"-->
-                 <!--md-auto-focus-->
-                 <!--input-duration-->
-                 <!--ng-model="vm.timeEstimate"-->
-                 <!--aria-label="Estimated Durations">-->
-        <!--</md-input-container>-->
-        <!--<h3 class="md-caption">Time Spent</h3>-->
-
-        <!--<md-input-container class="md-icon-float md-block">-->
-          <!--<ng-md-icon icon="timer"-->
-                      <!--aria-label="Time Spent Today"></ng-md-icon>-->
-          <!--<label>Time Spent Today</label>-->
-          <!--<input type="text"-->
-                 <!--input-duration="optional"-->
-                 <!--ng-model="vm.timeSpentOnDayCopy[vm.todayStr]"-->
-                 <!--aria-label="Time Spent Today">-->
-        <!--</md-input-container>-->
+    <button type="button"
+            md-mini-fab
+            aria-label="add for another day"
+            [hidden]="showAddForAnotherDayForm"
+            (click)="showAddForAnotherDayForm = true;">
+      <md-icon>add</md-icon>
+    </button>
+    <button type="submit"
+            style="width: 0;height: 0; font-size: 0;border: 0;background: transparent;"
+            tabindex="-1"></button>
+  </form>
 
 
-        <!--<div layout="row"-->
-             <!--ng-repeat="(strDate,timeSpent) in vm.timeSpentOnDayCopy"-->
-             <!--ng-if="vm.todayStr !== strDate">-->
-          <!--<div flex>-->
-            <!--<md-input-container class="md-icon-float md-block">-->
-              <!--<ng-md-icon icon="timer"-->
-                          <!--aria-label="Time Spent"></ng-md-icon>-->
-              <!--<label>Time Spent on <span ng-bind="strDate"></span></label>-->
-              <!--<input type="text"-->
-                     <!--input-duration="optional"-->
-                     <!--ng-model="vm.timeSpentOnDayCopy[strDate]"-->
-                     <!--aria-label="Time Spent">-->
-            <!--</md-input-container>-->
-          <!--</div>-->
-          <!--<div flex="20">-->
-            <!--<md-button class="md-raised md-icon-button md-accent"-->
-                       <!--aria-label="Delete"-->
-                       <!--ng-click="vm.deleteValue(strDate)">-->
-              <!--<ng-md-icon icon="delete_forever"></ng-md-icon>-->
-            <!--</md-button>-->
-          <!--</div>-->
-        <!--</div>-->
+  <form name="addForAnotherDayForm"
+        *ngIf="showAddForAnotherDayForm"
+        (submit)="addNewEntry(newEntry)">
+    <h3 class="md-caption">Add new entry <span ng-bind="newEntry.date|amDateFormat:'DD-MM-YYYY'"></span></h3>
+    <md-icon>event</md-icon>
 
-        <!--<md-button type="button"-->
-                   <!--aria-label="add for another day"-->
-                   <!--ng-hide="vm.showAddForAnotherDayForm"-->
-                   <!--ng-click="vm.showAddForAnotherDayForm = true;">-->
-          <!--<ng-md-icon icon="add"></ng-md-icon>-->
-          <!--add for another day-->
-        <!--</md-button>-->
-        <!--<button type="submit"-->
-                <!--style="width: 0;height: 0; font-size: 0;border: 0;background: transparent;"-->
-                <!--tabindex="-1"></button>-->
-      <!--</form>-->
+    <md-input-container>
 
+      <input mdInput
+             placeholder="Date for new entry"
+             type="date"
+             [ngModel]="newEntry.date"
+             required
+             name="date">
+      <div class="validation-messages"
+           ng-messages="addForAnotherDayForm.date.$error">
+        <div ng-message="valid">The entered value is not a date!</div>
+        <div ng-message="required">This date is required!</div>
+      </div>
+    </md-input-container>
 
-      <!--<form name="addForAnotherDayForm"-->
-            <!--ng-if="vm.showAddForAnotherDayForm"-->
-            <!--ng-submit="vm.addNewEntry(vm.newEntry)">-->
-        <!--<h3 class="md-caption">Add new entry <span ng-bind="vm.newEntry.date|amDateFormat:'DD-MM-YYYY'"></span></h3>-->
-        <!--<md-input-container class="md-block">-->
-          <!--<ng-md-icon icon="event"></ng-md-icon>-->
-          <!--<input type="date"-->
-                 <!--ng-model="vm.newEntry.date"-->
-                 <!--required-->
-                 <!--name="date"-->
-                 <!--placeholder="Date for new entry">-->
-          <!--<div class="validation-messages"-->
-               <!--ng-messages="addForAnotherDayForm.date.$error">-->
-            <!--<div ng-message="valid">The entered value is not a date!</div>-->
-            <!--<div ng-message="required">This date is required!</div>-->
-          <!--</div>-->
-        <!--</md-input-container>-->
-        <!--<md-input-container class="md-icon-float md-block">-->
-          <!--<ng-md-icon icon="timer"-->
-                      <!--aria-label="Time Spent on new entry"></ng-md-icon>-->
-          <!--<label>Time Spent on <span ng-bind="vm.newEntry.date|amDateFormat:'DD-MM-YYYY'"></span></label>-->
-          <!--<input type="text"-->
-                 <!--input-duration="optional"-->
-                 <!--ng-model="vm.newEntry.timeSpent"-->
-                 <!--aria-label="Time Spent for new entry">-->
-        <!--</md-input-container>-->
+    <md-icon>timer</md-icon>
 
-        <!--<md-button class="md-raised"-->
-                   <!--type="submit">-->
-          <!--<ng-md-icon icon="add"></ng-md-icon>-->
-          <!--Add-->
-        <!--</md-button>-->
-      <!--</form>-->
+    <md-input-container>
+      <label>Time Spent on <span ng-bind="newEntry.date|amDateFormat:'DD-MM-YYYY'"></span></label>
+      <input mdInput
+             placeholder="AAAA"
+             type="text"
+             name="timeSpentNew"
+             input-duration="optional"
+             [ngModel]="newEntry.timeSpent"
+             aria-label="Time Spent for new entry">
+    </md-input-container>
+
+    <button class="md-raised"
+            type="submit">
+      <i icon="add"></i>
+      Add
+    </button>
+  </form>
 
 
-      <!--<div class="side-info">-->
-        <!--Examples:<br>-->
-        <!--30m => 30 minutes<br>-->
-        <!--2h => 2 hours<br>-->
-        <!--2h 30m => 2 hours and 30 minutes-->
-      <!--</div>-->
+  <div class="side-info">
+    Examples:<br>
+    30m => 30 minutes<br>
+    2h => 2 hours<br>
+    2h 30m => 2 hours and 30 minutes
+  </div>
 
-    <!--</div>-->
-  <!--</md-dialog-content>-->
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-raised-button
+          md-dialog-close>Save
+  </button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-raised-button
+          [md-dialog-close]="true">Cancel
+  </button>
+</md-dialog-actions>
 
-
-  <!--<md-dialog-actions>-->
-    <!--<md-button type="submit"-->
-               <!--ng-click="vm.submit(vm.timeEstimate, vm.timeSpent)"-->
-               <!--class="md-primary md-raised">-->
-      <!--Save-->
-    <!--</md-button>-->
-    <!--<md-button ng-click="vm.cancel()"-->
-               <!--type="button"-->
-               <!--class="md-raised">-->
-      <!--Cancel-->
-    <!--</md-button>-->
-  <!--</md-dialog-actions>-->
-<!--</md-dialog>-->

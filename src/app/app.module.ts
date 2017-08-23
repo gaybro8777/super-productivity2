@@ -7,7 +7,15 @@ import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MdButtonModule, MdCheckboxModule, MdProgressBarModule, MdToolbarModule, MdDialogModule} from '@angular/material';
+import {
+  MdButtonModule,
+  MdCheckboxModule,
+  MdDialogModule,
+  MdInputModule,
+  MdProgressBarModule,
+  MdToolbarModule,
+  MdIconModule,
+} from '@angular/material';
 import {DragulaModule} from 'ng2-dragula';
 import {MarkdownToHtmlModule} from 'ng2-markdown-to-html';
 import {AppComponent} from './app.component';
@@ -54,7 +62,7 @@ export const appRoutes: Routes = [
     // dialogs
     DialogTimeEstimateComponent
   ],
-  entryComponents:[
+  entryComponents: [
     DialogTimeEstimateComponent,
   ],
   imports: [
@@ -70,6 +78,8 @@ export const appRoutes: Routes = [
     MdCheckboxModule,
     MdProgressBarModule,
     MdDialogModule,
+    MdInputModule,
+    MdIconModule,
 
     // store stuff
     StoreModule.forRoot({
