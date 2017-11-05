@@ -3,7 +3,7 @@ import {MatDialogRef} from '@angular/material';
 import {Task} from '../../tasks/task';
 
 @Component({
-  selector: 'app-dialog-time-estimate',
+  selector: 'sup-dialog-time-estimate',
   templateUrl: './dialog-time-estimate.component.html',
   styleUrls: ['./dialog-time-estimate.component.scss']
 })

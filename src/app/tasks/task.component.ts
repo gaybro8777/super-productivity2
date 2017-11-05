@@ -13,7 +13,7 @@ import {DialogTimeEstimateComponent} from '../dialogs/dialog-time-estimate/dialo
 // import {Task} from './task'
 
 @Component({
-  selector: 'app-task',
+  selector: 'sup-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss'],
   host: {

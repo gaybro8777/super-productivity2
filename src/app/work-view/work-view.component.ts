@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {Task} from '../tasks/task'
 
 @Component({
-  selector: 'app-work-view',
+  selector: 'sup-work-view',
   templateUrl: './work-view.component.html',
   styleUrls: ['./work-view.component.scss'],
   providers: [TaskService],

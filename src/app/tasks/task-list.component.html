@@ -12,8 +12,8 @@
   <div class="task-list"
        [dragula]='taskListId'
        [dragulaModel]="tasks$| async">
-    <app-task *ngFor="let task of tasks$ | async | filterBy:filterArgs; let i = index;"
+    <sup-task *ngFor="let task of tasks$ | async | filterBy:filterArgs; let i = index;"
               [task]="task">
-    </app-task>
+    </sup-task>
   </div>
 </section>

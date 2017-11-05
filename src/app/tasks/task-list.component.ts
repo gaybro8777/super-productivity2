@@ -7,7 +7,7 @@ import shortid from 'shortid'
 import {ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
-  selector: 'app-task-list',
+  selector: 'sup-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss'],
   providers: [TaskService],

@@ -1,7 +1,7 @@
 <div class="wrapper">
   <h2 class="mat-h2"> work-view</h2>
-  <app-task-list [tasks$]="tasks$" [filterArgs]="{'isDone':false}"></app-task-list>
+  <sup-task-list [tasks$]="tasks$" [filterArgs]="{'isDone':false}"></sup-task-list>
 
   <h2 class="mat-h2">Completed Tasks</h2>
-  <app-task-list [tasks$]="tasks$" [filterArgs]="{'isDone':true}"></app-task-list>
+  <sup-task-list [tasks$]="tasks$" [filterArgs]="{'isDone':true}"></sup-task-list>
 </div>

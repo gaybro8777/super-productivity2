@@ -5,7 +5,7 @@ import {EventEmitter} from '@angular/core';
 import {ElementRef} from '@angular/core';
 
 @Component({
-  selector: 'app-edit-on-click',
+  selector: 'sup-edit-on-click',
   templateUrl: './edit-on-click.component.html',
   styleUrls: ['./edit-on-click.component.scss']
 })

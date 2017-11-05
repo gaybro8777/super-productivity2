@@ -7,7 +7,7 @@ import {ChangeDetectionStrategy} from '@angular/core';
 
 
 @Component({
-  selector: 'app-inline-markdown',
+  selector: 'sup-inline-markdown',
   templateUrl: './inline-markdown.component.html',
   styleUrls: ['./inline-markdown.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

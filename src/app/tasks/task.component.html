@@ -55,10 +55,10 @@
   <!--aria-label="link"></i>-->
   <!--</button>-->
 
-  <app-edit-on-click class="title"
+  <sup-edit-on-click class="title"
                      [value]="task.title"
                      (editFinished)="updateTaskIfChanged($event.isChanged, task.id, $event.newVal)"
-                     tabindex="2"></app-edit-on-click>
+                     tabindex="2"></sup-edit-on-click>
 
   <div class="time">
     <!--<span *ngIf="task.subTasks.length>0">∑</span>-->
@@ -147,8 +147,8 @@
     <div class="mat-caption"
          [innerHtml]="task.originalId ? 'Description': 'Notes'"></div>
     <div class="mat-elevation-z4">
-      <app-inline-markdown [model]="task.notes"
-                           (onChanged)="onTaskNotesChanged(task.id,$event)"></app-inline-markdown>
+      <sup-inline-markdown [model]="task.notes"
+                           (onChanged)="onTaskNotesChanged(task.id,$event)"></sup-inline-markdown>
     </div>
   </section>
 
@@ -206,7 +206,7 @@
      *ngIf="task.subTasks"
      [dragula]="subTaskListId"
      [dragulaModel]="task.subTasks">
-  <app-task *ngFor="let task of task.subTasks; let i = index;"
+  <sup-task *ngFor="let task of task.subTasks; let i = index;"
             [task]="task">
-  </app-task>
+  </sup-task>
 </div>
