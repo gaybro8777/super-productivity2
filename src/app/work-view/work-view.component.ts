@@ -10,7 +10,7 @@ import {Task} from '../tasks/task'
   providers: [TaskService],
 })
 export class WorkViewComponent implements OnInit {
-  tasks$: Observable<[Task]>;
+  tasks$: Observable<Task[]>;
 
   constructor(private _taskService: TaskService) {
   }

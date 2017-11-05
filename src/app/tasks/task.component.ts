@@ -7,7 +7,7 @@ import {Observable} from 'rxjs/Observable';
 import {DragulaService} from 'ng2-dragula';
 import {Task} from './task';
 import shortid from 'shortid';
-import {MdDialog} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {DialogTimeEstimateComponent} from '../dialogs/dialog-time-estimate/dialog-time-estimate.component';
 
 // import {Task} from './task'
@@ -24,13 +24,13 @@ import {DialogTimeEstimateComponent} from '../dialogs/dialog-time-estimate/dialo
 export class TaskComponent implements OnInit, DoCheck {
   // @Input() task: Task;
   @Input() task: any;
-  @HostBinding('class.is-done') isDone: boolean = false;
-  @HostBinding('class.is-current') isCurrent: boolean = false;
-  isShowNotes: boolean = false;
+  @HostBinding('class.is-done') isDone = false;
+  @HostBinding('class.is-current') isCurrent = false;
+  isShowNotes = false;
   currentTask$: Observable<string>;
   subTaskListId: string;
 
-  constructor(private taskService: TaskService, private _dragulaService: DragulaService, public dialog: MdDialog) {
+  constructor(private taskService: TaskService, private _dragulaService: DragulaService, public dialog: MatDialog) {
   }
 
   ngDoCheck() {

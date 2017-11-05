@@ -1,10 +1,10 @@
-import { SuperProductivityPage } from './app.po';
+import { AppPage } from './app.po';
 
-describe('super-productivity App', () => {
-  let page: SuperProductivityPage;
+describe('super-productivity2 App', () => {
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new SuperProductivityPage();
+    page = new AppPage();
   });
 
   it('should display welcome message', () => {

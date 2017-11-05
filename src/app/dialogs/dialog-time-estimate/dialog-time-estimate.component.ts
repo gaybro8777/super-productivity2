@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MdDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 import {Task} from '../../tasks/task';
 
 @Component({
@@ -17,7 +17,7 @@ export class DialogTimeEstimateComponent implements OnInit {
   newEntry: any;
 
 
-  constructor(public dialogRef: MdDialogRef<DialogTimeEstimateComponent>) {
+  constructor(public dialogRef: MatDialogRef<DialogTimeEstimateComponent>) {
     // this.todayStr = TasksUtil.getTodayStr();
     this.todayStr = '12/12/12';
     this.taskCopy = Object.assign({}, this.task);

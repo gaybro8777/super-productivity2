@@ -1,7 +1,7 @@
 <div class="markdown-wrapper">
   <textarea *ngIf="isShowEdit"
             (blur)="untoggleShowEdit()"
-            class="md-body-1 markdown-unparsed"
+            class="mat-body-1 markdown-unparsed"
             rows="5"></textarea>
 
   <markdown-to-html [data]="model"
@@ -9,5 +9,5 @@
                     (click)="toggleShowEdit($event)"
                     (focus)="toggleShowEdit($event)"
                     (keypress)="keypressHandler($event)"
-                    class="md-body-1 markdown-parsed"></markdown-to-html>
+                    class="mat-body-1 markdown-parsed"></markdown-to-html>
 </div>

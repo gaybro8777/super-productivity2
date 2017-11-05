@@ -19,7 +19,7 @@ import {
 @Injectable()
 export class TaskService {
   tasks$: Observable<Array<Task>>;
-  currentTask$: Observable<String>;
+  currentTask$: Observable<string>;
 
   constructor(private _store: Store<any>) {
     this.tasks$ = this._store.select(state => state.TaskReducer);

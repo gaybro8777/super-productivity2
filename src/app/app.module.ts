@@ -4,17 +4,16 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import {StoreModule} from '@ngrx/store';
-import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MdButtonModule,
-  MdCheckboxModule,
-  MdDialogModule,
-  MdInputModule,
-  MdProgressBarModule,
-  MdToolbarModule,
-  MdIconModule,
+  MatButtonModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatIconModule,
+  MatInputModule,
+  MatProgressBarModule,
+  MatToolbarModule,
 } from '@angular/material';
 import {DragulaModule} from 'ng2-dragula';
 import {MarkdownToHtmlModule} from 'ng2-markdown-to-html';
@@ -31,7 +30,7 @@ import {TaskComponent} from './tasks/task.component';
 import {FilterPipeModule} from 'ngx-filter-pipe';
 import {metaReducers} from './meta.reducer';
 import {InlineMarkdownComponent} from './inline-markdown/inline-markdown.component';
-import {DialogTimeEstimateComponent} from './dialogs/dialog-time-estimate/dialog-time-estimate.component'
+import {DialogTimeEstimateComponent} from './dialogs/dialog-time-estimate/dialog-time-estimate.component';
 
 export const appRoutes: Routes = [
   {path: 'work-view', component: WorkViewComponent},
@@ -73,13 +72,13 @@ export const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes, {useHash: true}),
 
     // material2
-    MdToolbarModule,
-    MdButtonModule,
-    MdCheckboxModule,
-    MdProgressBarModule,
-    MdDialogModule,
-    MdInputModule,
-    MdIconModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    MatInputModule,
+    MatIconModule,
 
     // store stuff
     StoreModule.forRoot({
@@ -88,9 +87,6 @@ export const appRoutes: Routes = [
       },
       {metaReducers}
     ),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25 //  Retains last 25 states
-    }),
     EffectsModule.forRoot([TaskEffects]),
 
     // other

@@ -1,61 +1,61 @@
-<h2 md-dialog-title>Make an estimate / adjust time spent</h2>
-<md-dialog-content>
+<h2 mat-dialog-title>Make an estimate / adjust time spent</h2>
+<mat-dialog-content>
   <form (submit)="submit(timeEstimate, timeSpent)"
         class="mat-body"
         name="time-estimate-form">
 
-    <md-icon>timer</md-icon>
+    <mat-icon>timer</mat-icon>
 
-    <md-input-container>
-      <input mdInput
+    <mat-input-container>
+      <input matInput
              placeholder="Estimated Duration"
              input-duration
              name="estimate"
              [ngModel]="timeEstimate">
-    </md-input-container>
-    <h3 class="md-caption">Time Spent</h3>
+    </mat-input-container>
+    <h3 class="mat-caption">Time Spent</h3>
 
-    <md-icon>timer</md-icon>
+    <mat-icon>timer</mat-icon>
 
-    <md-input-container>
-      <input mdInput
+    <mat-input-container>
+      <input matInput
              placeholder="Time Spent Today"
              type="text"
              input-duration="optional"
              name="timeSpendToday"
              [ngModel]="timeSpentOnDayCopy[todayStr]">
-    </md-input-container>
+    </mat-input-container>
 
 
     <div layout="row"
          ng-repeat="(strDate,timeSpent) in timeSpentOnDayCopy"
          *ngIf="todayStr !== strDate">
       <div flex>
-        <md-icon>timer</md-icon>
-        <md-input-container class="md-icon-float md-block">
-          <input mdInput
+        <mat-icon>timer</mat-icon>
+        <mat-input-container class="mat-icon-float mat-block">
+          <input matInput
                  placeholder="Time Spent on +strDate+"
                  type="text"
                  input-duration="optional"
                  name="timeSpentToday"
                  [ngModel]="timeSpentOnDayCopy[strDate]"
                  aria-label="Time Spent">
-        </md-input-container>
+        </mat-input-container>
       </div>
       <div flex="20">
-        <button md-icon-button
+        <button mat-icon-button
                 (click)="deleteValue(strDate)">
-          <md-icon>delete_forever</md-icon>
+          <mat-icon>delete_forever</mat-icon>
         </button>
       </div>
     </div>
 
     <button type="button"
-            md-mini-fab
+            mat-mini-fab
             aria-label="add for another day"
             [hidden]="showAddForAnotherDayForm"
             (click)="showAddForAnotherDayForm = true;">
-      <md-icon>add</md-icon>
+      <mat-icon>add</mat-icon>
     </button>
     <button type="submit"
             style="width: 0;height: 0; font-size: 0;border: 0;background: transparent;"
@@ -66,12 +66,12 @@
   <form name="addForAnotherDayForm"
         *ngIf="showAddForAnotherDayForm"
         (submit)="addNewEntry(newEntry)">
-    <h3 class="md-caption">Add new entry <span ng-bind="newEntry.date|amDateFormat:'DD-MM-YYYY'"></span></h3>
-    <md-icon>event</md-icon>
+    <h3 class="mat-caption">Add new entry <span ng-bind="newEntry.date|amDateFormat:'DD-MM-YYYY'"></span></h3>
+    <mat-icon>event</mat-icon>
 
-    <md-input-container>
+    <mat-input-container>
 
-      <input mdInput
+      <input matInput
              placeholder="Date for new entry"
              type="date"
              [ngModel]="newEntry.date"
@@ -82,22 +82,22 @@
         <div ng-message="valid">The entered value is not a date!</div>
         <div ng-message="required">This date is required!</div>
       </div>
-    </md-input-container>
+    </mat-input-container>
 
-    <md-icon>timer</md-icon>
+    <mat-icon>timer</mat-icon>
 
-    <md-input-container>
+    <mat-input-container>
       <label>Time Spent on <span ng-bind="newEntry.date|amDateFormat:'DD-MM-YYYY'"></span></label>
-      <input mdInput
+      <input matInput
              placeholder="AAAA"
              type="text"
              name="timeSpentNew"
              input-duration="optional"
              [ngModel]="newEntry.timeSpent"
              aria-label="Time Spent for new entry">
-    </md-input-container>
+    </mat-input-container>
 
-    <button class="md-raised"
+    <button class="mat-raised"
             type="submit">
       <i icon="add"></i>
       Add
@@ -112,14 +112,14 @@
     2h 30m => 2 hours and 30 minutes
   </div>
 
-</md-dialog-content>
-<md-dialog-actions>
-  <button md-raised-button
-          md-dialog-close>Save
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button
+          mat-dialog-close>Save
   </button>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button md-raised-button
-          [md-dialog-close]="true">Cancel
+  <button mat-raised-button
+          [mat-dialog-close]="true">Cancel
   </button>
-</md-dialog-actions>
+</mat-dialog-actions>
 
