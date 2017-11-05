@@ -57,7 +57,7 @@
 
   <app-edit-on-click class="title"
                      [value]="task.title"
-                     (editFinished)="updateTask(task.id, $event.newVal)"
+                     (editFinished)="updateTaskIfChanged($event.isChanged, task.id, $event.newVal)"
                      tabindex="2"></app-edit-on-click>
 
   <div class="time">

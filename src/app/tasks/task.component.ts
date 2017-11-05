@@ -64,6 +64,12 @@ export class TaskComponent implements OnInit, DoCheck {
     this.taskService.pauseCurrentTask();
   }
 
+  updateTaskIfChanged(isChanged, idToEdit, task) {
+    if (isChanged) {
+      this.updateTask(idToEdit, task);
+    }
+  }
+
   updateTask(idToEdit: string, taskTitle: string) {
     this.taskService.updateTask(idToEdit, {title: taskTitle});
     // todo focus task again
