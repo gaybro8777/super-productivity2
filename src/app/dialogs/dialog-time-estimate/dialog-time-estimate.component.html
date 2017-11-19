@@ -9,10 +9,11 @@
     <mat-input-container>
       <input matInput
              placeholder="Estimated Duration"
-             input-duration
+             supInputDuration
              name="estimate"
              [ngModel]="timeEstimate">
     </mat-input-container>
+    <h2>{{timeEstimate}} X {{timeSpentOnDayCopy[todayStr]}}</h2>
     <h3 class="mat-caption">Time Spent</h3>
 
     <mat-icon>timer</mat-icon>
@@ -21,7 +22,7 @@
       <input matInput
              placeholder="Time Spent Today"
              type="text"
-             input-duration="optional"
+             supInputDuration="optional"
              name="timeSpendToday"
              [ngModel]="timeSpentOnDayCopy[todayStr]">
     </mat-input-container>
@@ -36,7 +37,7 @@
           <input matInput
                  placeholder="Time Spent on +strDate+"
                  type="text"
-                 input-duration="optional"
+                 supInputDuration="optional"
                  name="timeSpentToday"
                  [ngModel]="timeSpentOnDayCopy[strDate]"
                  aria-label="Time Spent">
@@ -92,8 +93,8 @@
              placeholder="AAAA"
              type="text"
              name="timeSpentNew"
-             input-duration="optional"
-             [ngModel]="newEntry.timeSpent"
+             supInputDuration="optional"
+             [(ngModel)]="newEntry.timeSpent"
              aria-label="Time Spent for new entry">
     </mat-input-container>
 
@@ -115,6 +116,7 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button
+          (click)="submit(timeEstimate, timeSpent)"
           mat-dialog-close>Save
   </button>
   <!-- Can optionally provide a result for the closing dialog. -->
