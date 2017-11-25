@@ -12,22 +12,8 @@ import {
 import {Task} from './task';
 import {LS_TASKS} from '../app.constants';
 import shortid from 'shortid';
-import * as moment from 'moment';
+import {calcTotalTimeSpent, parseFromLs} from './task-helper-fns';
 
-const calcTotalTimeSpent = (timeSpentOnDay) => {
-  const totalTimeSpent = moment.duration();
-  Object.keys(timeSpentOnDay).forEach(strDate => {
-    if (timeSpentOnDay[strDate]) {
-      totalTimeSpent.add(moment.duration(timeSpentOnDay[strDate]).asSeconds(), 's');
-    }
-  });
-
-  if (totalTimeSpent.asMinutes() > 0) {
-    return totalTimeSpent;
-  } else {
-    return undefined;
-  }
-};
 
 const INITIAL_TASK_STATE = [];
 
@@ -43,7 +29,7 @@ export function TaskReducer(state = INITIAL_TASK_STATE, action: any) {
         localStorage.setItem(LS_TASKS, JSON.stringify(INITIAL_TASK_STATE));
       }
 
-      const lsTasks: [Task] = JSON.parse(localStorage.getItem(LS_TASKS));
+      const lsTasks: [Task] = parseFromLs(LS_TASKS);
       return [...lsTasks];
 
     case ADD_TASK:
