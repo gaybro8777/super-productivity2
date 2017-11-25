@@ -10,8 +10,24 @@ import {
   UPDATE_TASK
 } from './task.actions';
 import {Task} from './task';
-import {LS_TASKS} from '../app.constants'
-import shortid from 'shortid'
+import {LS_TASKS} from '../app.constants';
+import shortid from 'shortid';
+import * as moment from 'moment';
+
+const calcTotalTimeSpent = (timeSpentOnDay) => {
+  const totalTimeSpent = moment.duration();
+  Object.keys(timeSpentOnDay).forEach(strDate => {
+    if (timeSpentOnDay[strDate]) {
+      totalTimeSpent.add(moment.duration(timeSpentOnDay[strDate]).asSeconds(), 's');
+    }
+  });
+
+  if (totalTimeSpent.asMinutes() > 0) {
+    return totalTimeSpent;
+  } else {
+    return undefined;
+  }
+};
 
 const INITIAL_TASK_STATE = [];
 
@@ -54,6 +70,11 @@ export function TaskReducer(state = INITIAL_TASK_STATE, action: any) {
 
     case UPDATE_TASK:
       return state.map((item) => {
+        // add total time spent
+        if (action.payload.changedFields.timeSpentOnDay) {
+          action.payload.changedFields.timeSpent = calcTotalTimeSpent(action.payload.changedFields.timeSpentOnDay);
+        }
+
         if (item.id === action.payload.id) {
           return Object.assign({}, item, action.payload.changedFields);
         } else if (item.subTasks) {

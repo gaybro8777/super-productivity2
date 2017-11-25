@@ -1,9 +1,13 @@
+import {Pipe, PipeTransform} from '@angular/core';
 import * as moment from 'moment';
-import {Injectable} from '@angular/core';
 
-@Injectable()
-export class ParseDurationService {
-  fromString(strValue) {
+
+@Pipe({
+  name: 'durationFromString'
+})
+export class DurationFromStringPipe implements PipeTransform {
+
+  transform(strValue: any, args?: any): any {
     if (!strValue) {
       return;
     }
@@ -54,33 +58,5 @@ export class ParseDurationService {
     } else {
       return undefined;
     }
-  }
-
-  toString(momentDuration) {
-    const md = Object.assign({}, momentDuration);
-    let val;
-
-    if (md) {
-      // if moment duration object
-      if (md.duration || md._milliseconds) {
-
-        const dd = md.duration && md.duration()._data || md._data;
-        val = '';
-        val += parseInt(dd.days, 10) > 0 && (dd.days + 'd ') || '';
-        val += parseInt(dd.hours, 10) > 0 && (dd.hours + 'h ') || '';
-        val += parseInt(dd.minutes, 10) > 0 && (dd.minutes + 'm ') || '';
-        val += parseInt(dd.seconds, 10) > 0 && (dd.seconds + 's ') || '';
-        val = val.trim();
-
-        // if moment duration string
-      } else if (md.replace) {
-        val = val.replace('PT', '');
-        val = val.toLowerCase(val);
-        val = val.replace(/(d|h|m|s)/g, '$1 ');
-        val = val.trim();
-      }
-    }
-
-    return val;
   }
 }

@@ -61,8 +61,8 @@
                      tabindex="2"></sup-edit-on-click>
 
   <div class="time">
-    <!--<span *ngIf="task.subTasks.length>0">∑</span>-->
-    <!--<span [innerHtml]="(task.timeSpent|duration) +' / ' + (task.timeEstimate|duration)"></span>-->
+    <span *ngIf="task.subTasks && task.subTasks.length>0">∑</span>
+    <span [innerHtml]="(task.timeSpent|durationToString) +' / ' + (task.timeEstimate|durationToString)"></span>
   </div>
 
   <div class="controls">

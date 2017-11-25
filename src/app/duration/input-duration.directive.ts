@@ -10,7 +10,8 @@ import {
   Validators,
 } from '@angular/forms';
 
-import {ParseDurationService} from '../parse-duration.service';
+import {DurationFromStringPipe} from './duration-from-string.pipe';
+import {DurationToStringPipe} from './duration-to-string.pipe';
 
 const noop = () => {
 };
@@ -31,7 +32,8 @@ export const INPUT_DURATION_VALIDATORS: any = {
 @Directive({
   selector: 'input[supInputDuration][ngModel]',
   providers: [
-    ParseDurationService,
+    DurationFromStringPipe,
+    DurationToStringPipe,
     INPUT_DURATION_VALUE_ACCESSOR,
     INPUT_DURATION_VALIDATORS,
   ],
@@ -48,7 +50,8 @@ export class InputDurationDirective<D> implements ControlValueAccessor,
 
   constructor(@Attribute('supInputDuration') public supInputDuration,
               private _elementRef: ElementRef,
-              private _parseDuration: ParseDurationService,
+              private _durationToString: DurationToStringPipe,
+              private _durationFromString: DurationFromStringPipe,
               private _renderer: Renderer2) {
   }
 
@@ -111,15 +114,17 @@ export class InputDurationDirective<D> implements ControlValueAccessor,
 
   // ControlValueAccessor: Formatter
   writeValue(value): void {
-    const string = value ? this._parseDuration.toString(value) : '';
-    this.value = string;
-    this._renderer.setProperty(this._elementRef.nativeElement, 'value', this.value);
+    this._renderer.setProperty(this._elementRef.nativeElement, 'value', this._durationToString.transform(value));
   }
 
   // host event handler
   // ------------------
   _onInput(value: string) {
-    this._value = this._parseDuration.fromString(value);
+    console.log('INPUT');
+
+    this._value = this._durationFromString.transform(value);
+    console.log(this._value, value);
+
     this._onChangeCallback(this.value);
   }
 

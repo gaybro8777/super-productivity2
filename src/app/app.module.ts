@@ -31,7 +31,9 @@ import {FilterPipeModule} from 'ngx-filter-pipe';
 import {metaReducers} from './meta.reducer';
 import {InlineMarkdownComponent} from './inline-markdown/inline-markdown.component';
 import {DialogTimeEstimateComponent} from './dialogs/dialog-time-estimate/dialog-time-estimate.component';
-import {InputDurationDirective} from './input-duration/input-duration.directive';
+import {InputDurationDirective} from './duration/input-duration.directive';
+import { DurationToStringPipe } from './duration/duration-to-string.pipe';
+import { DurationFromStringPipe } from './duration/duration-from-string.pipe';
 
 export const appRoutes: Routes = [
   {path: 'work-view', component: WorkViewComponent},
@@ -62,7 +64,10 @@ export const appRoutes: Routes = [
     // dialogs
     DialogTimeEstimateComponent,
 
-    InputDurationDirective
+    InputDurationDirective,
+
+    DurationToStringPipe,
+    DurationFromStringPipe
   ],
   entryComponents: [
     DialogTimeEstimateComponent,
