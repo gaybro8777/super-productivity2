@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>Make an estimate / adjust time spent</h2>
 <mat-dialog-content>
-  <form (submit)="submit(timeEstimate, timeSpent)"
+  <form (submit)="submit()"
         class="mat-body"
         name="time-estimate-form">
 
@@ -11,9 +11,8 @@
              placeholder="Estimated Duration"
              supInputDuration
              name="estimate"
-             [ngModel]="timeEstimate">
+             [(ngModel)]="taskCopy.timeEstimate">
     </mat-input-container>
-    <h2>{{timeEstimate}} X {{timeSpentOnDayCopy[todayStr]}}</h2>
     <h3 class="mat-caption">Time Spent</h3>
 
     <mat-icon>timer</mat-icon>
@@ -23,44 +22,44 @@
              placeholder="Time Spent Today"
              type="text"
              supInputDuration="optional"
-             name="timeSpendToday"
-             [ngModel]="timeSpentOnDayCopy[todayStr]">
+             name="taskCopy.timeSpendToday"
+             [(ngModel)]="timeSpentOnDayCopy[todayStr]">
     </mat-input-container>
 
 
-    <div layout="row"
-         ng-repeat="(strDate,timeSpent) in timeSpentOnDayCopy"
-         *ngIf="todayStr !== strDate">
-      <div flex>
-        <mat-icon>timer</mat-icon>
-        <mat-input-container class="mat-icon-float mat-block">
-          <input matInput
-                 placeholder="Time Spent on +strDate+"
-                 type="text"
-                 supInputDuration="optional"
-                 name="timeSpentToday"
-                 [ngModel]="timeSpentOnDayCopy[strDate]"
-                 aria-label="Time Spent">
-        </mat-input-container>
-      </div>
-      <div flex="20">
-        <button mat-icon-button
-                (click)="deleteValue(strDate)">
-          <mat-icon>delete_forever</mat-icon>
-        </button>
-      </div>
-    </div>
+    <!--<div layout="row"-->
+         <!--ng-repeat="(strDate,timeSpent) in timeSpentOnDayCopy"-->
+         <!--*ngIf="todayStr !== strDate">-->
+      <!--<div flex>-->
+        <!--<mat-icon>timer</mat-icon>-->
+        <!--<mat-input-container class="mat-icon-float mat-block">-->
+          <!--<input matInput-->
+                 <!--placeholder="Time Spent on +strDate+"-->
+                 <!--type="text"-->
+                 <!--supInputDuration="optional"-->
+                 <!--name="timeSpentToday"-->
+                 <!--[ngModel]="timeSpentOnDayCopy[strDate]"-->
+                 <!--aria-label="Time Spent">-->
+        <!--</mat-input-container>-->
+      <!--</div>-->
+      <!--<div flex="20">-->
+        <!--<button mat-icon-button-->
+                <!--(click)="deleteValue(strDate)">-->
+          <!--<mat-icon>delete_forever</mat-icon>-->
+        <!--</button>-->
+      <!--</div>-->
+    <!--</div>-->
 
-    <button type="button"
-            mat-mini-fab
-            aria-label="add for another day"
-            [hidden]="showAddForAnotherDayForm"
-            (click)="showAddForAnotherDayForm = true;">
-      <mat-icon>add</mat-icon>
-    </button>
-    <button type="submit"
-            style="width: 0;height: 0; font-size: 0;border: 0;background: transparent;"
-            tabindex="-1"></button>
+    <!--<button type="button"-->
+            <!--mat-mini-fab-->
+            <!--aria-label="add for another day"-->
+            <!--[hidden]="showAddForAnotherDayForm"-->
+            <!--(click)="showAddForAnotherDayForm = true;">-->
+      <!--<mat-icon>add</mat-icon>-->
+    <!--</button>-->
+    <!--<button type="submit"-->
+            <!--style="width: 0;height: 0; font-size: 0;border: 0;background: transparent;"-->
+            <!--tabindex="-1"></button>-->
   </form>
 
 
@@ -93,7 +92,6 @@
              placeholder="AAAA"
              type="text"
              name="timeSpentNew"
-             supInputDuration="optional"
              [(ngModel)]="newEntry.timeSpent"
              aria-label="Time Spent for new entry">
     </mat-input-container>
@@ -116,7 +114,7 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button
-          (click)="submit(timeEstimate, timeSpent)"
+          (click)="submit()"
           mat-dialog-close>Save
   </button>
   <!-- Can optionally provide a result for the closing dialog. -->

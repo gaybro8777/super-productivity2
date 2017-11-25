@@ -6,5 +6,6 @@ export class Task {
   parentId?: string;
   subTasks?: [Task];
   progress?: number;
+  timeEstimate?: any;
   timeSpentOnDay?: Object;
 }

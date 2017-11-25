@@ -56,9 +56,7 @@ export class InputDurationDirective<D> implements ControlValueAccessor,
   // by the Control Value Accessor
   private _onTouchedCallback: () => void = noop;
   private _validatorOnChange: (_: any) => void = noop;
-  private _onChangeCallback: (_: any) => void = () => {
-    console.log('_onChangeCallback');
-  };
+  private _onChangeCallback: (_: any) => void = noop;
 
 
   // @Input('value') value: string = '';
@@ -71,32 +69,25 @@ export class InputDurationDirective<D> implements ControlValueAccessor,
 
   set value(value) {
     if (value !== this._value) {
-      console.log('SET VALUE', this._value, value);
       this._value = value;
-      this._onChangeCallback(value);
+      this._onChangeCallback(this._value);
       this._renderer.setProperty(this._elementRef.nativeElement, 'value', value ? value : '');
     }
-    // console.log('setValue', value);
-    // this.value = value;
-    // this._value = value;
-    // this._renderer.setProperty(this._elementRef.nativeElement, 'value', value ? value : '');
-    // if ((oldDate!== value)) {
-    // this._valueChange.emit(value);
   }
 
 
-  /** The form control validator for whether the input parses. */
+  // Validations
+  // -----------
   private _parseValidator: ValidatorFn = (): ValidationErrors | null => {
-    // console.log('parseValidator', this._value);
-
     return this._value ?
       null : {'inputDurationParse': {'text': this._elementRef.nativeElement.value}};
-  };
+  }
 
-  /** The combined form control validator for this input. */
+  /* tslint:disable */
   private _validator: ValidatorFn | null =
     Validators.compose(
       [this._parseValidator]);
+  /* tslint:enable */
 
   // ControlValueAccessor interface
   registerOnValidatorChange(fn: () => void): void {
@@ -120,8 +111,7 @@ export class InputDurationDirective<D> implements ControlValueAccessor,
 
   // ControlValueAccessor: Formatter
   writeValue(value): void {
-    const string = this._parseDuration.toString(value);
-    console.log('!!!!writeValue', string);
+    const string = value ? this._parseDuration.toString(value) : '';
     this.value = string;
     this._renderer.setProperty(this._elementRef.nativeElement, 'value', this.value);
   }
@@ -130,17 +120,14 @@ export class InputDurationDirective<D> implements ControlValueAccessor,
   // ------------------
   _onInput(value: string) {
     this._value = this._parseDuration.fromString(value);
-    console.log('_onInput', value, this._value);
-    this._onChangeCallback(this._value);
+    this._onChangeCallback(this.value);
   }
 
   _onChange(ev) {
-    console.log('_onChange', ev);
-    this._onChangeCallback(ev);
+    this._onChangeCallback(this.value);
   }
 
   _onTouched(ev) {
-    console.log('_onTouched', ev);
     this._onTouchedCallback();
   }
 }

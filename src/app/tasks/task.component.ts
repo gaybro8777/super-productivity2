@@ -77,7 +77,9 @@ export class TaskComponent implements OnInit, DoCheck {
 
   estimateTime(task: Task) {
     this.dialog
-      .open(DialogTimeEstimateComponent)
+      .open(DialogTimeEstimateComponent, {
+        data: {task},
+      })
       .afterClosed()
       .subscribe(result => {
         console.log(result);
