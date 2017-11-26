@@ -39,8 +39,6 @@ export const INPUT_DURATION_VALIDATORS: any = {
   ],
   host: {
     '(input)': '_onInput($event.target.value)',
-    '(change)': '_onChange($event)',
-    '(blur)': '_onTouched()',
   },
 })
 
@@ -74,7 +72,6 @@ export class InputDurationDirective<D> implements ControlValueAccessor,
     if (value !== this._value) {
       this._value = value;
       this._onChangeCallback(this._value);
-      this._renderer.setProperty(this._elementRef.nativeElement, 'value', value ? value : '');
     }
   }
 
@@ -114,25 +111,17 @@ export class InputDurationDirective<D> implements ControlValueAccessor,
 
   // ControlValueAccessor: Formatter
   writeValue(value): void {
-    this._renderer.setProperty(this._elementRef.nativeElement, 'value', this._durationToString.transform(value));
+    this._renderer.setProperty(this._elementRef.nativeElement, 'value', value);
   }
 
   // host event handler
   // ------------------
   _onInput(value: string) {
-    console.log('INPUT');
-
-    this._value = this._durationFromString.transform(value);
-    console.log(this._value, value);
+    // format to have a standard format for durations
+    const momentDuration = this._durationFromString.transform(value);
+    this._value = this._durationToString.transform(momentDuration);
+    console.log(this._value);
 
     this._onChangeCallback(this.value);
-  }
-
-  _onChange(ev) {
-    this._onChangeCallback(this.value);
-  }
-
-  _onTouched(ev) {
-    this._onTouchedCallback();
   }
 }

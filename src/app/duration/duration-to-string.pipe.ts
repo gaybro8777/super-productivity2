@@ -32,5 +32,5 @@ export const durationToString = (momentDuration: any, args?: any): any => {
     }
   }
 
-  return val || '-';
+  return val || '';
 };

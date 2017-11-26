@@ -62,7 +62,7 @@
 
   <div class="time">
     <span *ngIf="task.subTasks && task.subTasks.length>0">∑</span>
-    <span [innerHtml]="(task.timeSpent|durationToString) +' / ' + (task.timeEstimate|durationToString)"></span>
+    <span [innerHtml]="(task.timeSpent||'-') +' / ' + (task.timeEstimate||'-')"></span>
   </div>
 
   <div class="controls">

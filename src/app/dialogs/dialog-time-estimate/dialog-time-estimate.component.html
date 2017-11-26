@@ -13,7 +13,7 @@
              name="estimate"
              [(ngModel)]="taskCopy.timeEstimate">
     </mat-input-container>
-    <h3 class="mat-caption">Time Spent</h3>
+    <h3 class="mat-caption">Time Spent {{taskCopy.timeEstimate}} --- {{timeSpentOnDayCopy[todayStr]}}</h3>
 
     <mat-icon>timer</mat-icon>
 
