@@ -111,6 +111,9 @@ export class InputDurationDirective<D> implements ControlValueAccessor,
 
   // ControlValueAccessor: Formatter
   writeValue(value): void {
+    if (!value) {
+      value = '';
+    }
     this._renderer.setProperty(this._elementRef.nativeElement, 'value', value);
   }
 

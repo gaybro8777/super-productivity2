@@ -4,102 +4,92 @@
         class="mat-body"
         name="time-estimate-form">
 
-    <mat-icon>timer</mat-icon>
-
-    <mat-input-container>
+    <mat-form-field>
       <input matInput
              placeholder="Estimated Duration"
              supInputDuration
              name="estimate"
              [(ngModel)]="taskCopy.timeEstimate">
-    </mat-input-container>
-    <h3 class="mat-caption">Time Spent {{taskCopy.timeEstimate}} --- {{timeSpentOnDayCopy[todayStr]}}</h3>
+      <mat-icon matPrefix>timer</mat-icon>
+    </mat-form-field>
+    <h3 class="mat-caption">Time Spent</h3>
 
-    <mat-icon>timer</mat-icon>
-
-    <mat-input-container>
+    <mat-form-field>
       <input matInput
              placeholder="Time Spent Today"
              type="text"
              supInputDuration="optional"
              name="taskCopy.timeSpendToday"
              [(ngModel)]="timeSpentOnDayCopy[todayStr]">
-    </mat-input-container>
+      <mat-icon matPrefix>timer</mat-icon>
+    </mat-form-field>
 
 
-    <!--<div layout="row"-->
-         <!--ng-repeat="(strDate,timeSpent) in timeSpentOnDayCopy"-->
-         <!--*ngIf="todayStr !== strDate">-->
-      <!--<div flex>-->
-        <!--<mat-icon>timer</mat-icon>-->
-        <!--<mat-input-container class="mat-icon-float mat-block">-->
-          <!--<input matInput-->
-                 <!--placeholder="Time Spent on +strDate+"-->
-                 <!--type="text"-->
-                 <!--supInputDuration="optional"-->
-                 <!--name="timeSpentToday"-->
-                 <!--[ngModel]="timeSpentOnDayCopy[strDate]"-->
-                 <!--aria-label="Time Spent">-->
-        <!--</mat-input-container>-->
-      <!--</div>-->
-      <!--<div flex="20">-->
-        <!--<button mat-icon-button-->
-                <!--(click)="deleteValue(strDate)">-->
-          <!--<mat-icon>delete_forever</mat-icon>-->
-        <!--</button>-->
-      <!--</div>-->
-    <!--</div>-->
+    <div *ngFor="let strDate of timeSpentOnDayCopy|keys:todayStr; trackBy:strDate">
+      {{timeSpentOnDayCopy[strDate]}}
+      <mat-form-field class="mat-icon-float mat-block">
+        <input matInput
+               placeholder="Time Spent on {{strDate}}"
+               type="text"
+               supInputDuration
+               name="timeSpentToday"
+               [(ngModel)]="timeSpentOnDayCopy[strDate]"
+               aria-label="Time Spent">
+        <mat-icon matPrefix>timer</mat-icon>
+      </mat-form-field>
+      <button mat-icon-button
+              (click)="deleteValue(strDate)">
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+    </div>
 
-    <!--<button type="button"-->
-            <!--mat-mini-fab-->
-            <!--aria-label="add for another day"-->
-            <!--[hidden]="showAddForAnotherDayForm"-->
-            <!--(click)="showAddForAnotherDayForm = true;">-->
-      <!--<mat-icon>add</mat-icon>-->
-    <!--</button>-->
-    <!--<button type="submit"-->
-            <!--style="width: 0;height: 0; font-size: 0;border: 0;background: transparent;"-->
-            <!--tabindex="-1"></button>-->
+    <button type="button"
+            mat-mini-fab
+            aria-label="add for another day"
+            [hidden]="isAddForAnotherDayFormVisible"
+            (click)="showAddForAnotherDayForm()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button type="submit"
+            style="width: 0;height: 0; font-size: 0;border: 0;background: transparent;"
+            tabindex="-1"></button>
   </form>
 
 
   <form name="addForAnotherDayForm"
-        *ngIf="showAddForAnotherDayForm"
+        *ngIf="isAddForAnotherDayFormVisible"
         (submit)="addNewEntry(newEntry)">
-    <h3 class="mat-caption">Add new entry <span ng-bind="newEntry.date|amDateFormat:'DD-MM-YYYY'"></span></h3>
-    <mat-icon>event</mat-icon>
-
-    <mat-input-container>
-
-      <input matInput
+    <h3 class="mat-caption">Add new entry for <span [innerHtml]="newEntry.date|date:'dd-MM-yyyy'"></span></h3>
+    <mat-form-field>
+      <input [matDatepicker]="myDatepicker"
+             matInput
              placeholder="Date for new entry"
-             type="date"
-             [ngModel]="newEntry.date"
+             type="text"
+             [(ngModel)]="newEntry.date"
              required
              name="date">
-      <div class="validation-messages"
-           ng-messages="addForAnotherDayForm.date.$error">
-        <div ng-message="valid">The entered value is not a date!</div>
-        <div ng-message="required">This date is required!</div>
-      </div>
-    </mat-input-container>
+      <mat-error>The entered value is not a date!</mat-error>
+      <mat-datepicker-toggle matPrefix
+                             [for]="myDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #myDatepicker></mat-datepicker>
+    </mat-form-field>
 
-    <mat-icon>timer</mat-icon>
 
-    <mat-input-container>
-      <label>Time Spent on <span ng-bind="newEntry.date|amDateFormat:'DD-MM-YYYY'"></span></label>
+    <mat-form-field>
       <input matInput
-             placeholder="AAAA"
+             placeholder="Time Spent on {{newEntry.date|date:'dd-MM-yyyy'}}"
              type="text"
              name="timeSpentNew"
+             required
+             supInputDuration
              [(ngModel)]="newEntry.timeSpent"
              aria-label="Time Spent for new entry">
-    </mat-input-container>
+      <mat-icon matPrefix>timer</mat-icon>
+    </mat-form-field>
 
-    <button class="mat-raised"
+    <button mat-mini-fab
             type="submit">
-      <i icon="add"></i>
-      Add
+      <mat-icon>save</mat-icon>
     </button>
   </form>
 

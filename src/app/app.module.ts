@@ -9,11 +9,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
   MatCheckboxModule,
+  MatDatepickerModule,
   MatDialogModule,
   MatIconModule,
   MatInputModule,
+  MatNativeDateModule,
   MatProgressBarModule,
-  MatToolbarModule,
+  MatToolbarModule
 } from '@angular/material';
 import {DragulaModule} from 'ng2-dragula';
 import {MarkdownToHtmlModule} from 'ng2-markdown-to-html';
@@ -32,8 +34,10 @@ import {metaReducers} from './meta.reducer';
 import {InlineMarkdownComponent} from './inline-markdown/inline-markdown.component';
 import {DialogTimeEstimateComponent} from './dialogs/dialog-time-estimate/dialog-time-estimate.component';
 import {InputDurationDirective} from './duration/input-duration.directive';
-import { DurationToStringPipe } from './duration/duration-to-string.pipe';
-import { DurationFromStringPipe } from './duration/duration-from-string.pipe';
+import {DurationToStringPipe} from './duration/duration-to-string.pipe';
+import {DurationFromStringPipe} from './duration/duration-from-string.pipe';
+import {KeysPipe} from './helper/keys.pipe';
+import {ToArrayPipe} from './helper/to-array.pipe';
 
 export const appRoutes: Routes = [
   {path: 'work-view', component: WorkViewComponent},
@@ -67,7 +71,9 @@ export const appRoutes: Routes = [
     InputDurationDirective,
 
     DurationToStringPipe,
-    DurationFromStringPipe
+    DurationFromStringPipe,
+    KeysPipe,
+    ToArrayPipe
   ],
   entryComponents: [
     DialogTimeEstimateComponent,
@@ -87,6 +93,8 @@ export const appRoutes: Routes = [
     MatDialogModule,
     MatInputModule,
     MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
 
     // store stuff
     StoreModule.forRoot({

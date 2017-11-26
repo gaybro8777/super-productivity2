@@ -55,9 +55,9 @@ export const durationFromString = (strValue: any, args?: any): any => {
     if (momentVal.asSeconds() > 0) {
       return momentVal;
     } else {
-      return undefined;
+      return null;
     }
   } else {
-    return undefined;
+    return null;
   }
 };
