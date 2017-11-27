@@ -6,7 +6,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class KeysPipe implements PipeTransform {
 
-  transform(value: any, filterOutKeys?: any): any {
+  transform(value: any, sort: any, filterOutKeys?: any): any {
     if (value === Object(value)) {
       const keys = Object.keys(value);
 
@@ -16,6 +16,16 @@ export class KeysPipe implements PipeTransform {
           keys.splice(index, 1);
         }
       }
+
+      if (sort) {
+        keys.sort();
+
+      }
+
+      if (sort === 'reverse') {
+        keys.reverse();
+      }
+
       return keys;
     }
 
