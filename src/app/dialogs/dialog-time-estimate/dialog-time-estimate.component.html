@@ -19,22 +19,21 @@
              placeholder="Time Spent Today"
              type="text"
              supInputDuration="optional"
-             name="taskCopy.timeSpendToday"
+             name="timeSpendToday"
              [(ngModel)]="timeSpentOnDayCopy[todayStr]">
       <mat-icon matPrefix>timer</mat-icon>
     </mat-form-field>
 
 
-    <div *ngFor="let strDate of timeSpentOnDayCopy|keys:todayStr; trackBy:strDate">
-      {{timeSpentOnDayCopy[strDate]}}
+    <div *ngFor="let strDate of timeSpentOnDayCopy|keys:todayStr">
       <mat-form-field class="mat-icon-float mat-block">
         <input matInput
                placeholder="Time Spent on {{strDate}}"
                type="text"
-               supInputDuration
-               name="timeSpentToday"
+               name="timeSpentOnDay{{strDate}}"
                [(ngModel)]="timeSpentOnDayCopy[strDate]"
                aria-label="Time Spent">
+
         <mat-icon matPrefix>timer</mat-icon>
       </mat-form-field>
       <button mat-icon-button

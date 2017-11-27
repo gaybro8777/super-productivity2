@@ -75,6 +75,4 @@ export class DialogTimeEstimateComponent implements OnInit {
   deleteValue(strDate) {
     delete this.timeSpentOnDayCopy[strDate];
   }
-
-
 }
